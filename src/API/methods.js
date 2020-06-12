@@ -78,6 +78,8 @@ export const login = async (email, password) => {
   }
 }
 
+
+// Experimental endpoint, to check if trainers are being created, a modification of this endpoint will later be used for trainer listing
 export const listTrainers = async ()=>{
   try {
     // username is email in this case
