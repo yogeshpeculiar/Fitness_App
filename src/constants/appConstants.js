@@ -1,0 +1,1 @@
+export const rootURL = 'https://te-gym-api.herokuapp.com';
