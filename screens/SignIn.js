@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text,Image,View,StatusBar,StyleSheet,TextInput,TouchableOpacity,ScrollView} from 'react-native';
 import backgroundImage from '../assets/bg.jpg';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { login } from '../src/API/methods';
 var radio_props = [
     {label: 'User  ', value: 0 },
     {label: 'Trainer', value: 1 }
   ];
 function SignIn({navigation}){
-
-    const [data, setData] = React.useState({
+    const [email,setEmail]=useState('');
+    const [password,setPassword]=useState('');
+    const [data, setData] = useState({
         secureTextEntry: true
     });
  
@@ -20,6 +22,27 @@ function SignIn({navigation}){
             secureTextEntry: !data.secureTextEntry
         });
     }
+    // const signIn = () => {
+    //     const check=login(email,password);
+    //      if(check==true)
+    //         navigation.navigate('Listings')
+    //     else
+    //        console.log('incorect pswd---check---'+JSON.stringify(check))
+    //     }
+
+    const signIn = async () => {
+        var result = await login(email,password) ;
+      
+        console.log('-------------'+result);
+        if(result){
+            navigation.navigate('Listings')
+        }
+        else{
+            return(
+                <Text style={{color:''}}>incorrect password</Text>
+            );
+        }
+      }
     return(
         
         <View style={{flexDirection:'column',flex:1}}>
@@ -30,7 +53,6 @@ function SignIn({navigation}){
                 <View style={{flexDirection:'row',marginBottom:20,marginTop:40}}>
                 <Text style={{color:'white',fontSize:20,marginRight:50}}>Login as :</Text>
                 <RadioForm
-                        
                         radio_props={radio_props}
                         initial={0}
                         formHorizontal={true}
@@ -44,9 +66,7 @@ function SignIn({navigation}){
                 />
                 
                 </View>
-            <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start'}}>
-                <Text style={{color:'white'}}>hello</Text>
-            </View>
+            
                 
                
                 <ScrollView>
@@ -61,7 +81,8 @@ function SignIn({navigation}){
                         placeholder="Email"
                         placeholderTextColor="grey"
                         style={{paddingLeft:20,color:'white',fontSize:22}}
-                        autoCapitalize="none"/>
+                        autoCapitalize="none"
+                        onChangeText={(text)=>{setEmail({text})}}/>
                 </View>
                 <View style={{flexDirection:'row',borderBottomColor:'white',borderBottomWidth:2,width:'100%',marginTop:35}}>
                     <FontAwesome 
@@ -76,7 +97,8 @@ function SignIn({navigation}){
                         secureTextEntry={data.secureTextEntry ? true : false}
 
                         style={{paddingLeft:20,color:'white',fontSize:22}}
-                        autoCapitalize="none"/>
+                        autoCapitalize="none"
+                        onChangeText={(text)=>{setPassword({text})}} />
                      <TouchableOpacity
                      style={{marginTop:10,marginLeft:140}}
                     onPress={updateSecureTextEntry}>
@@ -100,7 +122,7 @@ function SignIn({navigation}){
             </TouchableOpacity>
             <TouchableOpacity 
             style={{marginTop:40,borderColor:'green',borderWidth:4,width:'50%',marginLeft:80}}
-            
+            onPress={signIn}
             >
               <Text style={{color:'white',fontSize:28,padding:5,paddingLeft:40,paddingRight:30}}>LOGIN</Text>  
             </TouchableOpacity>

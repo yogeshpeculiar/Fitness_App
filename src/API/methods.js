@@ -1,5 +1,6 @@
 import axios from './config';
 import {validateResponseCode} from "../utils/utils";
+import { Alert } from 'react-native';
 
 export const updateAxiosToken = (token) => {
   if (!token) {
@@ -63,12 +64,25 @@ export const registerUser = async (fields) => {
 export const login = async (email, password) => {
   try {
     // username is email in this case
+    console.log(JSON.stringify(email)+'---------'+password)
+    Object.entries(email).map(([key,value])=>{
+      email=value.toString()
+    })
+    Object.entries(password).map(([key,value])=>{
+     password=value.toString()
+    })
+
     let response = await axios.post('/login', {
       username: email,
       password: password
+      // username: 'test@gmail.com',
+      // password: '123456'
     });
+    
+  
     if (validateResponseCode(response.status)) {
       // extract JWT from response and save it to storage, then pass token to updateAxiosToken
+
       return true;
     } else
       return false;

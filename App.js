@@ -3,8 +3,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignIn from './screens/SignIn';
+// import SignIn from './screens/SignIn';
 import SignUp from './screens/Signup';
+import Listings from './screens/Listings';
+import Login from './screens/Login';
+import SignInWithRegisteredEmail from './screens/SignInWithRegisteredEmail';
 // import './node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function HomeScreen() {
@@ -27,8 +30,10 @@ export default function App() {
         }}
         
         >
-          <Stack.Screen name="SignIn" component={SignIn}  />
+          <Stack.Screen name="login" component={Login} options={{ title: '' }}/>
           <Stack.Screen name="Signup" component={SignUp}  />
+          <Stack.Screen name="Listings" component={Listings}  />
+          <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail} options={{ title: '' }}/>
         </Stack.Navigator>
 
     </NavigationContainer>
