@@ -1,7 +1,7 @@
 import axios from './config';
 import {validateResponseCode} from "../utils/utils";
 import { Alert } from 'react-native';
-
+import store from '../Redux/Store/index';
 export const updateAxiosToken = (token) => {
   if (!token) {
     console.log("Clearing axios token");
@@ -12,25 +12,14 @@ export const updateAxiosToken = (token) => {
   }
 };
 
-export const registerTrainer = async (fields) => {
+export const registerTrainer = async (email, password) => {
   try {
-    const {name, email, password, experience, chargePerHour, phone, gender, bmi, weight, height, chest, biceps} = fields;
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('experience', experience);
-    formData.append('chargePerHour', chargePerHour);
-    formData.append('phone', phone);
-    formData.append('gender', gender);
-    formData.append('bmi', bmi);
-    formData.append('weight', weight);
-    formData.append('height', height);
-    formData.append('chest', chest);
-    formData.append('biceps', biceps);
-
-    let response = await axios.post('/register/trainer', formData);
+    let response = await axios.post('/register/trainer', {
+      email,
+      password
+    });
     if (validateResponseCode(response.status)) {
+      console.log(response.data);
       return true; //success
     } else
       return false;
@@ -40,18 +29,15 @@ export const registerTrainer = async (fields) => {
   }
 };
 
-export const registerUser = async (fields) => {
+export const registerUser = async (email, password) => {
   try {
-    const {name, email, password, gender, phone} = fields;
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('phone', phone);
-    formData.append('gender', gender);
-
-    let response = await axios.post('/register/user', formData);
+    let response = await axios.post('/register/user', {
+      email,
+      password
+    });
     if (validateResponseCode(response.status)) {
+      console.log(response.data);
+      
       return true; //success
     } else
       return false;
@@ -73,16 +59,19 @@ export const login = async (email, password) => {
     })
 
     let response = await axios.post('/login', {
-      username: email,
-      password: password
-      // username: 'test@gmail.com',
-      // password: '123456'
+      // username: email,
+      // password: password
+      username: 'test@gmail.com',
+      password: '123456'
     });
     
   
     if (validateResponseCode(response.status)) {
+      console.log(response.data)
       // extract JWT from response and save it to storage, then pass token to updateAxiosToken
-
+      
+      store.dispatch({type:'ADD_JWT',jwt:response.data.token})
+      updateAxiosToken(response.data.token)
       return true;
     } else
       return false;

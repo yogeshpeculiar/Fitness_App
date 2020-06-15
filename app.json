@@ -22,7 +22,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "ios"
+    },
+    "android": {
+      "package": "com.fitnessapp"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
