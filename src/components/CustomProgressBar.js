@@ -19,8 +19,8 @@ CustomProgressBar.propTypes = {
   progress: PropTypes.number.isRequired // from 0 to 1
 };
 
-CustomProgressBar.defaultProps = { //testing, remove this later
-  progress: Math.random() > 0.5 ? 75: 50,
-}
+// CustomProgressBar.defaultProps = {
+//   progress: Math.random() > 0.5 ? 75: 50,
+// }
 
 export default CustomProgressBar;

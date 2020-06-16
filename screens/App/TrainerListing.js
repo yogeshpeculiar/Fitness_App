@@ -10,30 +10,34 @@ class TrainerListing extends Component {
   };
 
   componentDidMount() {
-    var that = this;
-    let items = Array.apply(null, Array(60)).map((v, i) => {
+    let items = Array.apply(null, Array(20)).map((v, i) => {
       return {
         id: i,
-        name: 'Khushbu Dutta Gupta',
-        slots: 3,
-        dpUrl: 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038',
-        experience: 5
+        name: Math.random() > 0.5 ? 'Kalyan Battersetty' : 'Khushbu Dutta Gupta',
+        slots:{
+          used: 3,
+          remaining:2,
+        },
+        dpUrl: Math.random() > 0.5 ? 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038' : 'https://www.pngitem.com/pimgs/m/28-288789_transparent-png-person-standing-standing-png-download.png',
+        experience: 123,
+        rating:4.3
       };
     });
 
-    that.setState({
+    this.setState({
       dataSource: items,
     });
   }
 
   renderTrainerThumb = (trainer, index) => {
-    const {name, slots, dpUrl, experience} = trainer;
+    const {name, slots, dpUrl, experience, rating} = trainer;
     return <View style={index % 2 !== 0 && styles.itemSeparatorVertical}>
       <TrainerThumb
         name={name}
         slots={slots}
         dpUrl={dpUrl}
         experience={experience}
+        rating={rating}
       />
     </View>
   }
@@ -42,38 +46,29 @@ class TrainerListing extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      // <View style={styles.container}>
         <FlatList
+          contentContainerStyle={styles.container}
+          style={{flex:1}}
           data={this.state.dataSource}
           renderItem={({item, index}) => this.renderTrainerThumb(item, index)}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this.renderHorizontalSeparatorView}
         />
-      </View>
+      // </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
-    alignItems: "center"
-  },
-  text: {
-    color: "#000",
-    fontSize: 14,
-    fontWeight: "bold"
-  },
-  imageThumbnail: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
+    alignItems: "center",
   },
   itemSeparatorHorizontal: {
     height: 1,
-    width: "100%",
+    borderLeftWidth:1,
     backgroundColor: colors.lightGrey,
   },
   itemSeparatorVertical: {

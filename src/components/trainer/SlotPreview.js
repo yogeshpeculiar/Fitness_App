@@ -33,10 +33,10 @@ SlotPreview.propTypes = {
   remainingSlots: PropTypes.number.isRequired
 };
 
-SlotPreview.defaultProps = { //testing, remove this later
-  usedSlots: 4,
-  remainingSlots: 2
-}
+// SlotPreview.defaultProps = {
+//   usedSlots: 4,
+//   remainingSlots: 2
+// }
 
 const styles = StyleSheet.create({
   container: {

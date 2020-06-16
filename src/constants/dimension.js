@@ -1,4 +1,5 @@
 export const spacing = {
+  small_sm:3,
   small: 5,
   medium_sm: 10,
   medium: 15,
@@ -6,5 +7,5 @@ export const spacing = {
   large: 25,
   large_lg: 30,
   space_40: 40,
-  thumbnailSize:80
+  thumbnailSize:90
 };

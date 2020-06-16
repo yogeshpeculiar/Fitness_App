@@ -38,7 +38,7 @@ GenericText.propTypes = {
   type: PropTypes.oneOf(['light', 'title', 'small']),
 };
 
-GenericText.defaultProps = { //testing, remove this later
+GenericText.defaultProps = {
   type: 'title'
 }
 
