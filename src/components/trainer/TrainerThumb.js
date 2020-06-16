@@ -5,16 +5,26 @@ import PropTypes from 'prop-types';
 import RoundedDP from '../RoundedDP';
 import GenericText from "../GenericText";
 import {coachedPeople} from "../../constants/strings";
+import SlotPreview from "./SlotPreview";
+import {spacing} from "../../constants/dimension";
 
 const trainerThumb = (props) => {
   return (
     <View style={styles.container}>
-      <RoundedDP/>
-      <GenericText/>
-      <GenericText
-        textContent={coachedPeople(props.experience)}
-        type={'light'}
-      />
+      <View style={styles.roundedDPContainer}>
+        <RoundedDP/>
+      </View>
+      <View style={styles.nameContainer}>
+        <GenericText>{props.name}</GenericText>
+      </View>
+      <View style={styles.experienceContainer}>
+        <GenericText
+          type={'light'}
+        >{coachedPeople(props.experience)}</GenericText>
+      </View>
+      <View style={styles.slotPreviewContainer}>
+        <SlotPreview/>
+      </View>
     </View>
   );
 }
@@ -26,11 +36,11 @@ trainerThumb.propTypes = {
   slots: PropTypes.number.isRequired
 };
 
-trainerThumb.defaultProps={ //testing, remove this later
-  name:'he',
-  experience:3,
-  dpUrl:'322',
-  slots:2
+trainerThumb.defaultProps = { //testing, remove this later
+  name: Math.random() > 0.5 ? 'Kalyan Battersetty' : 'Khushbu Dutta Gupta',
+  experience: 3,
+  dpUrl: '322',
+  slots: 2
 }
 
 const styles = StyleSheet.create({
@@ -39,11 +49,22 @@ const styles = StyleSheet.create({
     padding: 24,
     alignItems: "center"
   },
-  text: {
-    color: "#000",
-    fontSize: 14,
-    fontWeight: "bold"
+  roundedDPContainer:{
+    marginBottom:spacing.medium_sm
   },
+  nameContainer:{
+    paddingTop:spacing.small,
+    paddingBottom:spacing.small
+  },
+  experienceContainer:{
+    paddingBottom:spacing.small
+  },
+  slotPreviewContainer:{
+    flex:1,
+    width:'100%',
+  }
+
+
 });
 
 export default trainerThumb;

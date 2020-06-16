@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList, Image} from 'react-native'
 
 import TrainerThumb from '../../src/components/trainer/TrainerThumb';
+import colors from "../../src/constants/colors";
 
 class TrainerListing extends Component {
   state = {
@@ -25,25 +26,29 @@ class TrainerListing extends Component {
     });
   }
 
-  renderTrainerThumb = (trainer) => {
+  renderTrainerThumb = (trainer, index) => {
     const {name, slots, dpUrl, experience} = trainer;
-    return <TrainerThumb
-      name={name}
-      slots={slots}
-      dpUrl={dpUrl}
-      experience={experience}
-    />
+    return <View style={index % 2 !== 0 && styles.itemSeparatorVertical}>
+      <TrainerThumb
+        name={name}
+        slots={slots}
+        dpUrl={dpUrl}
+        experience={experience}
+      />
+    </View>
   }
+
+  renderHorizontalSeparatorView = () => <View style={styles.itemSeparatorHorizontal}/>
 
   render() {
     return (
       <View style={styles.container}>
         <FlatList
           data={this.state.dataSource}
-          renderItem={({item}) => this.renderTrainerThumb(item)}
-          //Setting the number of column
+          renderItem={({item, index}) => this.renderTrainerThumb(item, index)}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={this.renderHorizontalSeparatorView}
         />
       </View>
     );
@@ -53,9 +58,8 @@ class TrainerListing extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // padding: 24,
-    justifyContent: 'center'
-    // alignItems: "center"
+    justifyContent: 'center',
+    alignItems: "center"
   },
   text: {
     color: "#000",
@@ -67,6 +71,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 100,
   },
+  itemSeparatorHorizontal: {
+    height: 1,
+    width: "100%",
+    backgroundColor: colors.lightGrey,
+  },
+  itemSeparatorVertical: {
+    borderLeftWidth: 1,
+    borderLeftColor: colors.lightGrey
+  }
 });
 
 export default TrainerListing;

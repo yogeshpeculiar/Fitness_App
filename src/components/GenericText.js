@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import fontSizes from "../constants/fontSizes";
 
 const GenericText = (props) => {
-  const {textContent, type} = props;
+  const {children, type} = props;
   let textStyle = {};
-  console.log(fontSizes)
   switch (type) {
     case 'title':
       textStyle = {
@@ -19,24 +18,27 @@ const GenericText = (props) => {
         fontSize: fontSizes.h5+1
       }
       break;
+    case 'small':
+      textStyle ={
+        color:'black',
+        fontSize:fontSizes.h6+1
+      }
     default:
       break;
   }
-  console.log(textStyle)
   return (
     <Text style={textStyle}>
-      {textContent}
+      {children}
     </Text>
   );
 }
 
 GenericText.propTypes = {
-  textContent: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['light', 'title']),
+  children: PropTypes.oneOfType([ PropTypes.string, PropTypes.number]),
+  type: PropTypes.oneOf(['light', 'title', 'small']),
 };
 
 GenericText.defaultProps = { //testing, remove this later
-  textContent: Math.random() > 0.5 ? 'Kalyan Battersetty' : 'Khushbu Dutta Gupta',
   type: 'title'
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types';
-import * as colors from "../constants/colors";
+import colors from "../constants/colors";
 import {spacing} from "../constants/dimension";
 
 const RoundedDP = (props) => {
