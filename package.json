@@ -17,6 +17,7 @@
     "expo": "^37.0.12",
     "expo-splash-screen": "^0.2.3",
     "expo-updates": "~0.2.0",
+    "prop-types": "^15.7.2",
     "react": "~16.9.0",
     "react-bootstrap": "^1.0.1",
     "react-dom": "~16.9.0",
@@ -42,10 +43,10 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "babel-jest": "~25.2.6",
-    "jest": "~25.2.6",
-    "react-test-renderer": "~16.9.0",
     "babel-preset-expo": "~8.1.0",
-    "react-native-clean-project": "^3.3.0"
+    "jest": "~25.2.6",
+    "react-native-clean-project": "^3.3.0",
+    "react-test-renderer": "~16.9.0"
   },
   "private": true
 }
