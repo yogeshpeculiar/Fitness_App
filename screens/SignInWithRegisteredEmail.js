@@ -28,7 +28,18 @@ export default class SignInWithRegisteredEmail extends Component{
     }
    
     async signIn  () {
-        var result = await login(this.state.email,this.state.password) ;
+        let temail = '';
+        let tpassword = ''
+        if (this.state.email != "") {
+            temail = JSON.stringify(this.state.email.text);
+            temail = temail.slice(1, -1);
+        }
+        if (this.state.password != "") {
+            tpassword = JSON.stringify(this.state.password.text);
+            tpassword = tpassword.slice(1, -1);
+        }
+
+        var result = await login(temail,tpassword) ;
       
         console.log('-------------'+result);
         if(result){
@@ -43,10 +54,8 @@ export default class SignInWithRegisteredEmail extends Component{
    
     render(){
         return(
-           
-        
-    
-                 <KeyboardAwareScrollView enableOnAndroid={true} contentContainerStyle={{flexGrow:1,backgroundColor:'white'}}>
+            
+            <KeyboardAwareScrollView enableOnAndroid={true} contentContainerStyle={{flexGrow:1,backgroundColor:'white'}}>
                
                 <View style={{flex:1,marginLeft:20,marginRight:20,justifyContent:'center',marginTop:20}}>
                 
@@ -104,7 +113,7 @@ export default class SignInWithRegisteredEmail extends Component{
                             
                             <View style={{flex:1,flexDirection:'row',justifyContent:'center',alignItems:'flex-start'}}>
                                 <Text style={{fontSize:16}}>Don't have an account? </Text>
-                                <TouchableOpacity style={{}}>
+                                <TouchableOpacity onPress={() => {this.props.navigation.navigate('Signup')}}>
                                     <Text style={{color:'blue',fontSize:17}}> Sign up</Text>
                                 </TouchableOpacity>
                             </View>

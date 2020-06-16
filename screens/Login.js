@@ -121,7 +121,7 @@ render(){
                 <View style={{flex:1}}>
                         <View style={{flexDirection:'row',justifyContent:'center'}}>
                             <Text style={{color:'grey',fontSize:12}}>Dont't have an account? </Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity  onPress={() => {this.props.navigation.navigate('Signup')}} >
                                 <Text style={{color:'blue'}}> Sign up</Text>
                             </TouchableOpacity>
                         </View>   
