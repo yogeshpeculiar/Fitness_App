@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
 
 import background from '../../assets/bg.jpg';
-import ProfileInfo from '../../src/components/Profile/ProfileInfo';
+import ProfileOverview from '../../src/components/Profile/ProfileOverview';
 import colors from "../../src/constants/colors";
 
 const STATUS_BAR_HEIGHT =  0;
@@ -25,7 +25,7 @@ class Profile extends Component {
   renderContent = () => {
     return (
       <View style={styles.container}>
-        <ProfileInfo/>
+        <ProfileOverview/>
       </View>
     )
   }

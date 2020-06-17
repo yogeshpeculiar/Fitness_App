@@ -7,7 +7,8 @@ const types = {
   light: 'light',
   title: 'title',
   small: 'small',
-  heading: 'heading',
+  headingBold: 'headingBold',
+  heading:'heading',
   titleBold: 'titleBold'
 }
 
@@ -15,11 +16,17 @@ const GenericText = (props) => {
   const {children, type} = props;
   let textStyle = {};
   switch (type) {
-    case types.heading:
+    case types.headingBold:
       textStyle = {
         fontSize: fontSizes.h0,
         color: 'black',
         fontWeight: 'bold'
+      };
+      break;
+      case types.heading:
+      textStyle = {
+        fontSize: fontSizes.h1,
+        color: 'black',
       };
       break;
     case types.title:

@@ -11,7 +11,7 @@ import ProfileHits from './ProfileHits';
 import ExpandingText from "../ExpandingText";
 import RoundedFas from "../RoundedFas";
 
-const ProfileInfo = (props) => {
+const ProfileOverview = (props) => {
   const {hits} = props;
   return (
     <View style={styles.container}>
@@ -34,7 +34,7 @@ const ProfileInfo = (props) => {
       </View>
 
       <View style={styles.descriptionContainer}>
-        <GenericText type={'titleBold'}>{strings.SOCIAL}</GenericText>
+        <GenericText type={GenericText.types.titleBold}>{strings.SOCIAL}</GenericText>
         <View style={styles.socialGroup}>
           <View style={styles.socialContainer}>
             <RoundedFas fas={'facebook-f'}/>
@@ -46,7 +46,7 @@ const ProfileInfo = (props) => {
       </View>
 
       <View style={styles.descriptionContainer}>
-        <GenericText type={'titleBold'}>{strings.POSTS}</GenericText>
+        <GenericText type={GenericText.types.titleBold}>{strings.POSTS}</GenericText>
         <View style={{height:300}}>
 
         </View>
@@ -56,7 +56,7 @@ const ProfileInfo = (props) => {
   );
 }
 
-ProfileInfo.propTypes = {
+ProfileOverview.propTypes = {
   name: PropTypes.string.isRequired,
   dpUrl: PropTypes.string.isRequired,
   hits: PropTypes.shape({
@@ -67,7 +67,7 @@ ProfileInfo.propTypes = {
   })
 };
 
-ProfileInfo.defaultProps = {
+ProfileOverview.defaultProps = {
   name: 'Sangeetha Thevar',
   dpUrl: Math.random() > 0.5 ? 'https://i.ya-webdesign.com/images/people-standing-png-4.png' : 'https://www.pngitem.com/pimgs/m/28-288789_transparent-png-person-standing-standing-png-download.png',
   hits: {
@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ProfileInfo;
+export default ProfileOverview;

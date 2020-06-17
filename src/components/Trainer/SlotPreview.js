@@ -12,7 +12,7 @@ const SlotPreview = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.slotTextContainer}>
-        <GenericText type={'small'}>
+        <GenericText type={GenericText.types.small}>
           {strings.SLOTS}
         </GenericText>
       </View>
@@ -20,7 +20,7 @@ const SlotPreview = (props) => {
         <CustomProgressBar progress={progress}/>
       </View>
       <View style={styles.slotTextContainer}>
-        <GenericText type={'small'}>
+        <GenericText type={GenericText.types.small}>
           {remainingSlots}
         </GenericText>
       </View>

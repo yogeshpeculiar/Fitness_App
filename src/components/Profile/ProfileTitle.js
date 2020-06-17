@@ -15,7 +15,7 @@ const ProfileTitle = (props) => {
       </View>
       <View style={styles.mainContent}>
         <View style={styles.nameContainer}>
-          <GenericText type={'heading'}>{props.name}</GenericText>
+          <GenericText type={GenericText.types.headingBold}>{props.name}</GenericText>
         </View>
         <View style={styles.buttonGroup}>
           <View style={styles.buttonContainer}>

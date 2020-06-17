@@ -1,4 +1,6 @@
 export const coachedPeople = (amount)=> `Coached ${amount} people`;
+export const durationBuilder = (duration) => `DURATION: ${duration} Weeks`;
+export const priceBuilder = (price) => `PRICE: ${price} INR`;
 
 const strings = {
   SLOTS : 'Slots',
@@ -11,7 +13,13 @@ const strings = {
   SEE_MORE:'See more',
   SEE_LESS:'See less',
   SOCIAL:'Social',
-  POSTS:'Posts'
+  POSTS:'Posts',
+  DURATION:'DURATION',
+  WEEKS:'Weeks',
+  PRICE:'PRICE',
+  DESCRIPTION:'DESCRIPTION',
+  PLAN_PRICE:'Plan price :',
+  PROCEED:'Proceed'
 };
 
 export default strings;
