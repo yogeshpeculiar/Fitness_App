@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, Image} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, FlatList, Image, StatusBar} from 'react-native'
 
-import TrainerThumb from '../../src/components/trainer/TrainerThumb';
+import TrainerThumb from '../../src/components/Trainer/TrainerThumb';
 import colors from "../../src/constants/colors";
+import RouteNames from "../../src/navigation/RouteNames";
 
 class TrainerListing extends Component {
   state = {
@@ -14,13 +15,13 @@ class TrainerListing extends Component {
       return {
         id: i,
         name: Math.random() > 0.5 ? 'Kalyan Battersetty' : 'Khushbu Dutta Gupta',
-        slots:{
+        slots: {
           used: 3,
-          remaining:2,
+          remaining: 2,
         },
         dpUrl: Math.random() > 0.5 ? 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038' : 'https://www.pngitem.com/pimgs/m/28-288789_transparent-png-person-standing-standing-png-download.png',
         experience: 123,
-        rating:4.3
+        rating: 4.3
       };
     });
 
@@ -29,9 +30,18 @@ class TrainerListing extends Component {
     });
   }
 
+  openTrainer = () => {
+    const {navigation} = this.props;
+    navigation.navigate(RouteNames.Profile);
+  }
+
   renderTrainerThumb = (trainer, index) => {
     const {name, slots, dpUrl, experience, rating} = trainer;
-    return <View style={index % 2 !== 0 && styles.itemSeparatorVertical}>
+    return <TouchableOpacity
+      activeOpacity={0.7}
+      style={index % 2 !== 0 && styles.itemSeparatorVertical}
+      onPress={() => this.openTrainer(trainer)}
+    >
       <TrainerThumb
         name={name}
         slots={slots}
@@ -39,24 +49,24 @@ class TrainerListing extends Component {
         experience={experience}
         rating={rating}
       />
-    </View>
+    </TouchableOpacity>
   }
 
   renderHorizontalSeparatorView = () => <View style={styles.itemSeparatorHorizontal}/>
 
   render() {
-    return (
-      // <View style={styles.container}>
+    return (<>
+        <StatusBar backgroundColor={colors.appBlue}/>
         <FlatList
           contentContainerStyle={styles.container}
-          style={{flex:1}}
+          style={{flex: 1}}
           data={this.state.dataSource}
           renderItem={({item, index}) => this.renderTrainerThumb(item, index)}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this.renderHorizontalSeparatorView}
         />
-      // </View>
+        </>
     );
   }
 }
@@ -68,7 +78,7 @@ const styles = StyleSheet.create({
   },
   itemSeparatorHorizontal: {
     height: 1,
-    borderLeftWidth:1,
+    borderLeftWidth: 1,
     backgroundColor: colors.lightGrey,
   },
   itemSeparatorVertical: {

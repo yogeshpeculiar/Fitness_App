@@ -1,8 +1,8 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Text, View } from 'react-native';
-import 'react-native-gesture-handler';
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import Listings from './screens/Listings';
