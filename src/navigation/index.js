@@ -50,6 +50,9 @@ class App extends React.Component {
         </NavigationContainer>
       );
     }
+    else return (
+      null // here we return the Authentication screen navigators. u can mostly cut paste NavigationContainer from App.js and it should work
+      );
 
 
   }
