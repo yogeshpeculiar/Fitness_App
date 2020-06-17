@@ -57,8 +57,8 @@ class Profile extends Component {
           contentContainerStyle={styles.contentContainer}
           innerContainerStyle={styles.container}
           scrollViewProps={{
-            onScrollBeginDrag: () => console.log('onScrollBeginDrag'),
-            onScrollEndDrag: () => console.log('onScrollEndDrag'),
+            // onScrollBeginDrag: () => console.log('onScrollBeginDrag'),
+            // onScrollEndDrag: () => console.log('onScrollEndDrag'),
           }}
         />
       </View>
