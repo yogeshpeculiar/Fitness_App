@@ -131,3 +131,4 @@ export const addTrainerDetails = async (height,weight,experience,name) => {
 //   return false;
 // })
 // }
+
