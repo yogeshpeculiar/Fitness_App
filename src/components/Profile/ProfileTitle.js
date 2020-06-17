@@ -19,10 +19,15 @@ const ProfileTitle = (props) => {
         </View>
         <View style={styles.buttonGroup}>
           <View style={styles.buttonContainer}>
-            <GenericButton textContent={strings.FOLLOW}/>
+            <GenericButton
+              onPress={props.followCallback}
+              textContent={strings.FOLLOW}/>
           </View>
           <View style={styles.buttonContainer}>
-            <GenericButton textContent={strings.ENROLL}/>
+            <GenericButton
+              onPress={props.enrollCallback}
+              textContent={strings.ENROLL}
+            />
           </View>
         </View>
       </View>
@@ -32,32 +37,34 @@ const ProfileTitle = (props) => {
 
 ProfileTitle.propTypes = {
   name: PropTypes.string.isRequired,
-  dpUrl: PropTypes.string.isRequired
+  dpUrl: PropTypes.string.isRequired,
+  followCallback: PropTypes.func,
+  enrollCallback: PropTypes.func
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginLeft:spacing.medium,
-    marginRight:spacing.medium,
+    marginLeft: spacing.medium,
+    marginRight: spacing.medium,
   },
-  dpContainer:{
+  dpContainer: {
     marginLeft: spacing.small,
     marginRight: spacing.small,
   },
-  mainContent:{
-    marginLeft:spacing.medium,
-    marginRight:spacing.medium
+  mainContent: {
+    marginLeft: spacing.medium,
+    marginRight: spacing.medium
   },
-  nameContainer:{
-    marginBottom:spacing.small
+  nameContainer: {
+    marginBottom: spacing.small
   },
-  buttonGroup:{
+  buttonGroup: {
     flexDirection: 'row',
-    marginTop:spacing.small_sm,
+    marginTop: spacing.small_sm,
   },
-  buttonContainer:{
-    marginRight:spacing.medium_sm
+  buttonContainer: {
+    marginRight: spacing.medium_sm
   }
 });
 

@@ -14,7 +14,7 @@ const PackageOverview = (props) => {
   const [collapsed, setCollapsed] = useState(true);
   const chevron = !collapsed ? 'chevron-up' : 'chevron-down';
   return (
-    <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
+    <TouchableOpacity activeOpacity={0.9} onPress={() => setCollapsed(!collapsed)}>
       <View style={styles.titleContainer}>
         <View style={styles.titleTextContainer}>
           <GenericText type={GenericText.types.heading}>{props.title.toUpperCase()}</GenericText>
@@ -50,8 +50,6 @@ const PackageOverview = (props) => {
       {
         collapsed && <View style={styles.separator}/>
       }
-
-
     </TouchableOpacity>
   );
 }

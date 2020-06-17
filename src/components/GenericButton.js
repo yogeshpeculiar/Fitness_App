@@ -5,10 +5,10 @@ import colors from "../constants/colors";
 import {spacing} from "../constants/dimension";
 
 const GenericButton = (props) => {
-  const {textContent, callback} = props;
+  const {textContent, onPress} = props;
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity activeOpacity={0.7}  onPress={onPress} style={styles.container}>
       <Text style={styles.textContentStyle}>{textContent}</Text>
     </TouchableOpacity>
   );

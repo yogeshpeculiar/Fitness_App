@@ -5,6 +5,7 @@ import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import background from '../../assets/bg.jpg';
 import ProfileOverview from '../../src/components/Profile/ProfileOverview';
 import colors from "../../src/constants/colors";
+import RouteNames from "../../src/navigation/RouteNames";
 
 const STATUS_BAR_HEIGHT =  0;
 const HEADER_HEIGHT = 64;
@@ -18,14 +19,17 @@ class Profile extends Component {
     },
   };
 
-  componentDidMount() {
-
+  enrollClicked = (data)=> {
+    const {navigation} = this.props;
+    navigation.navigate(RouteNames.Packages);
   }
 
   renderContent = () => {
     return (
       <View style={styles.container}>
-        <ProfileOverview/>
+        <ProfileOverview
+          enrollCallback={this.enrollClicked}
+        />
       </View>
     )
   }
@@ -45,13 +49,13 @@ class Profile extends Component {
           headerMinHeight={20}
           headerMaxHeight={400} //or screenheight *2/3
           extraScrollHeight={20}
-          navbarColor="white"
+          // navbarColor="white"
           // title={name}
           // alwaysShowTitle={false}
-          titleStyle={styles.titleStyle}
+          // titleStyle={styles.titleStyle}
           backgroundImage={background}
           backgroundImageScale={1.2}
-          renderNavBar={this.renderNavBar}
+          // renderNavBar={this.renderNavBar}
           renderContent={this.renderContent}
           containerStyle={styles.container}
           contentContainerStyle={styles.contentContainer}

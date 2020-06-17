@@ -19,6 +19,9 @@ const ProfileOverview = (props) => {
         <ProfileTitle
           name={props.name}
           dpUrl={props.dpUrl}
+          enrollCallback={props.enrollCallback}
+          followCallback={() => {
+          }}
         />
       </View>
       <View style={styles.profileHitsContainer}>
@@ -47,7 +50,7 @@ const ProfileOverview = (props) => {
 
       <View style={styles.descriptionContainer}>
         <GenericText type={GenericText.types.titleBold}>{strings.POSTS}</GenericText>
-        <View style={{height:300}}>
+        <View style={{height: 300}}>
 
         </View>
       </View>
@@ -64,7 +67,9 @@ ProfileOverview.propTypes = {
     following: PropTypes.number.isRequired,
     transformations: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-  })
+  }),
+  enrollCallback: PropTypes.func,
+  followCallback: PropTypes.func
 };
 
 ProfileOverview.defaultProps = {
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: spacing.medium
   },
-  socialContainer:{
+  socialContainer: {
     marginRight: spacing.medium_lg
   }
 

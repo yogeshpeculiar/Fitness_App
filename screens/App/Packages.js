@@ -61,7 +61,8 @@ class Packages extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginLeft: spacing.medium
+    marginLeft: spacing.medium_lg,
+    marginRight:spacing.medium_lg
   },
   packageContainer: {
     marginTop: spacing.medium,
