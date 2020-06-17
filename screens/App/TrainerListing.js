@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList, Image} from 'react-native'
 
-import TrainerThumb from '../../src/components/trainer/TrainerThumb';
+import TrainerThumb from '../../src/components/Trainer/TrainerThumb';
 import colors from "../../src/constants/colors";
 
 class TrainerListing extends Component {
@@ -46,7 +46,6 @@ class TrainerListing extends Component {
 
   render() {
     return (
-      // <View style={styles.container}>
         <FlatList
           contentContainerStyle={styles.container}
           style={{flex:1}}
@@ -56,7 +55,6 @@ class TrainerListing extends Component {
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this.renderHorizontalSeparatorView}
         />
-      // </View>
     );
   }
 }

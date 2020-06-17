@@ -14,7 +14,7 @@ export const updateAxiosToken = (token) => {
 
 export const registerTrainer = async (email, password) => {
   try {
-    let response = await axios.post('/register/trainer', {
+    let response = await axios.post('/register/Trainer', {
       email,
       password
     });
@@ -81,7 +81,7 @@ export const login = async (email, password) => {
 }
 
 
-// Experimental endpoint, to check if trainers are being created, a modification of this endpoint will later be used for trainer listing
+// Experimental endpoint, to check if trainers are being created, a modification of this endpoint will later be used for Trainer listing
 export const listTrainers = async () => {
   try {
     // username is email in this case

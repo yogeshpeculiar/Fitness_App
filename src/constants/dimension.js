@@ -7,5 +7,7 @@ export const spacing = {
   large: 25,
   large_lg: 30,
   space_40: 40,
-  thumbnailSize:90
+  fasIcon:30,
+  thumbnailMini:60,
+  thumbnail:90
 };

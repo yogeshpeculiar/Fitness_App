@@ -5,11 +5,18 @@ import colors from "../constants/colors";
 import {spacing} from "../constants/dimension";
 
 const RoundedDP = (props) => {
+  const {url, size = spacing.thumbnail, border=false} = props;
+  const sizeStyle = {
+    height: size,
+    width: size,
+    borderRadius: size / 2,
+    borderWidth: border?1:0
+  }
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, sizeStyle]}>
       <Image
-        source={{uri: props.url}}
-        style={styles.imageStyle}
+        source={{uri: url}}
+        style={sizeStyle}
       />
     </View>
   );
@@ -26,14 +33,6 @@ RoundedDP.propTypes = {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.bgGrey,
-    height: spacing.thumbnailSize,
-    width: spacing.thumbnailSize,
-    borderRadius: spacing.thumbnailSize / 2
-  },
-  imageStyle: {
-    height: spacing.thumbnailSize,
-    width: spacing.thumbnailSize,
-    borderRadius: spacing.thumbnailSize / 2
   }
 });
 

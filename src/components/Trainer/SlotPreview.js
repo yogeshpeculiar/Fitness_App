@@ -3,7 +3,7 @@ import {Text, StyleSheet, View} from 'react-native'
 import PropTypes from 'prop-types';
 import CustomProgressBar from "../CustomProgressBar";
 import GenericText from "../GenericText";
-import {SLOTS} from "../../constants/strings";
+import strings from "../../constants/strings";
 import {spacing as dimension} from "../../constants/dimension";
 
 const SlotPreview = (props) => {
@@ -13,7 +13,7 @@ const SlotPreview = (props) => {
     <View style={styles.container}>
       <View style={styles.slotTextContainer}>
         <GenericText type={'small'}>
-          {SLOTS}
+          {strings.SLOTS}
         </GenericText>
       </View>
       <View style={{flex:1}}>
