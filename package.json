@@ -26,6 +26,7 @@
     "react-native-24h-timepicker": "^1.1.0",
     "react-native-elements": "^2.0.2",
     "react-native-gesture-handler": "~1.6.0",
+    "react-native-image-picker": "^2.3.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-numeric-input": "^1.8.3",
@@ -42,7 +43,8 @@
     "react-redux": "^7.2.0",
     "react-time-picker": "^4.0.1",
     "redux": "^4.0.5",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

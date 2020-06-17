@@ -60,3 +60,5 @@ class App extends React.Component {
 
 
 export default App;
+
+import Storage from '../API/storage';
