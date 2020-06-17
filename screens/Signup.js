@@ -3,13 +3,17 @@ import { Text, View, TextInput, ToastAndroid, Platform, AlertIOS } from 'react-n
 import { TouchableOpacity, FlingGestureHandler } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { registerUser } from '../src/API/methods';
+import { registerUser, registerTrainer, addTrainerDetails } from '../src/API/methods';
 import { CheckBox } from 'react-native-elements'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import RadioForm from 'react-native-simple-radio-button';
+import uploadImage from '../src/API/methods';
+
 export default class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userRole:'user',
             icon: "eye-off",
             isPasswordHidded: true,
             height: '80%',
@@ -20,7 +24,8 @@ export default class Signup extends Component {
             agreeToTerms: false,
             nameError: null,
             emailError: null,
-            passwordError: null
+            passwordError: null,
+            checked:false
 
         }
     }
@@ -86,13 +91,41 @@ export default class Signup extends Component {
         else
             this.setState(() => ({ passwordError: null }));
 
+        if(!this.state.checked){
+            this.showMessage('kindly accept the terms and conditions')
+            isValid=false;
+        }
         return isValid;
 
     }
+    // async check(){
+    //     var result = await uploadImage();
+    //     if(result)
+    //     console.log('image upload success')
+    //     else
+    //     console.log('image upload falied')
+    // }
 
     async signup() {
         if (this.validateInputs()) {
-            var result = await registerUser(this.state.email, this.state.password);
+            let temail = '';
+            let tpassword = ''
+            if (this.state.email != "") {
+                temail = JSON.stringify(this.state.email.text);
+                temail = temail.slice(1, -1);
+            }
+            if (this.state.password != "")
+             {
+                tpassword = JSON.stringify(this.state.password.text);
+                tpassword = tpassword.slice(1, -1);
+            }
+            console.log(this.state.userRole)
+
+            if(this.state.userRole === 'user')
+            {
+             var result = await registerUser(temail,tpassword);
+           
+
 
             console.log('-------------' + result);
             if (result) {
@@ -105,17 +138,49 @@ export default class Signup extends Component {
                 this.showMessage('signup failed')
             }
         }
+        else{
+
+            var result = await registerTrainer(temail,tpassword);
+             console.log('-------------' + result);
+            if (result) {
+                this.props.navigation.navigate('TrainerSignupDetails')
+            }
+            else {
+                this.showMessage('signup failed')
+            }
+            }
+        }
     }
+    
 
     render() {
+        var  radio_props = [
+            {label: 'User  ', value: 'user' },
+            {label: 'Trainer', value: 'trainer' }
+          ];
         return (
             <KeyboardAwareScrollView enableOnAndroid={true} contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}>
 
-                <View style={{ flex: 1, marginLeft: 20, marginRight: 20, justifyContent: 'center', marginTop: 60 }}>
-
-
-                    <View style={{ flex: 2, justifyContent: 'center', marginBottom: 20 }}>
-                        <Text style={{ fontSize: 18 }}>Name</Text>
+                <View style={{ flex: 1, marginLeft: 20, marginRight: 20, justifyContent: 'center', marginTop: 40 }}>
+                <View style={{flexDirection:'row'}}>
+                    
+                    <Text style={{color:'black',fontSize:20,marginRight:50}}>Login as :</Text>
+                    <RadioForm
+                        radio_props={radio_props}
+                        initial={0}
+                        formHorizontal={true}
+                        onPress={()=>{}}
+                        labelColor={'black'}
+                        animation={true}
+                        buttonColor={'black'}
+                        selectedButtonColor={'blue'}
+                        selectedLabelColor={'black'}
+                        labelStyle={{marginRight:25}}
+                        onPress={(value) => {this.setState({userRole:value})}}
+                    />
+                </View>
+                    <View style={{ flex: 2, justifyContent: 'center', marginBottom: 20,marginTop:20 }}>
+                        {/* <Text style={{ fontSize: 18 }}>Name</Text>
                         <TextInput
                             placeholder="Your name"
                             placeholderTextColor="grey"
@@ -125,7 +190,7 @@ export default class Signup extends Component {
                         />
                         {!!this.state.nameError && (
                             <Text style={{ color: "red" }}>{this.state.nameError}</Text>
-                        )}
+                        )} */}
 
                         <Text style={{ fontSize: 18, marginTop: 20 }}>Email</Text>
                         <TextInput
@@ -197,10 +262,11 @@ export default class Signup extends Component {
                             </TouchableOpacity>}
                             containerStyle={{ backgroundColor: 'white', backfaceVisibility: "hidden", borderColor: 'white', marginTop: 20 }}
                             checked={this.state.checked}
-                            onPress={() => this.setState({ checked: !this.state.checked })}
+                            onPress={() => {this.setState({ checked: !this.state.checked }),console.log(this.state.checked)}}
                         />
+                        {/* <TouchableOpacity onPress={() => this.signup()} style={{ backgroundColor: 'blue', borderRadius: 25, width: '30%', alignItems: 'center', marginLeft: "35%", padding: 5, marginTop: 20 }}> */}
                         <TouchableOpacity onPress={() => this.signup()} style={{ backgroundColor: 'blue', borderRadius: 25, width: '30%', alignItems: 'center', marginLeft: "35%", padding: 5, marginTop: 20 }}>
-                            <Text style={{ color: 'white', fontSize: 22, marginLeft: 10, marginRight: 10 }}>Sign up</Text>
+                           <Text style={{ color: 'white', fontSize: 22, marginLeft: 10, marginRight: 10 }}>Sign up</Text>
                         </TouchableOpacity>
 
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', marginTop: 30 }}>

@@ -1,7 +1,7 @@
 import axios from './config';
 import { validateResponseCode } from "../utils/utils";
-import { Alert } from 'react-native';
 import store from '../Redux/Store/index';
+import image from '../../assets/bg.jpg';
 export const updateAxiosToken = (token) => {
   if (!token) {
     console.log("Clearing axios token");
@@ -15,11 +15,16 @@ export const updateAxiosToken = (token) => {
 export const registerTrainer = async (email, password) => {
   try {
     let response = await axios.post('/register/trainer', {
-      email,
-      password
+      // email,
+      // password
+      email:email,
+      password:password
     });
     if (validateResponseCode(response.status)) {
       console.log(response.data);
+      console.log('jwt token'+response.data.jwt)
+      store.dispatch({ type: 'ADD_JWT', jwt: response.data.jwt})
+      updateAxiosToken(response.data.jwt)
       return true; //success
     } else
       return false;
@@ -31,14 +36,7 @@ export const registerTrainer = async (email, password) => {
 
 export const registerUser = async (email, password) => {
   try {
-    Object.entries(email).map(([key, value]) => {
-      email = value.toString()
-    })
-    Object.entries(password).map(([key, value]) => {
-      password = value.toString()
-    })
-
-    let response = await axios.post('/register/user', {
+     let response = await axios.post('/register/user', {
       email,
       password
     });
@@ -96,3 +94,42 @@ export const listTrainers = async () => {
     return false;
   }
 }
+
+export const addTrainerDetails = async (height,weight,experience,name) => {
+  try {
+     let response = await axios.put('/user', {
+      height:height,
+      weight:weight,
+      experience:experience,
+      name:name
+    });
+    if (validateResponseCode(response.status)) {
+      console.log(response.data);
+
+      return true; //success
+    } else
+      return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+// export const uploadImage = async () => {
+// const state=store.getState();
+// RNFetchBlob.fetch('POST','/user/displayImage', {
+//   Authorization : state.jwt,
+//   'Content-Type' : 'multipart/form-data'
+// },[
+//   {name : 'image',
+//   filename : 'photo.png',
+//   data: RNFetchBlob.wrap(image)
+// }
+// ]).then((resp) => {
+//   return true;
+
+// }).catch((err) => {
+//   console.log('img upload failed'+ err)
+//   return false;
+// })
+// }

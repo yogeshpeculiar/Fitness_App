@@ -11,8 +11,11 @@ import SignInWithRegisteredEmail from './screens/SignInWithRegisteredEmail';
 import SignUp from './screens/Signup';
 import StarterScreen from './screens/starterScreen';
 import EmailVerification from './screens/EmailVerification';
+import TrainerSignupDetails from './screens/TrainerSignupDetails';
+
 import store from './src/Redux/Store';
 import { persistor } from './src/Redux/Store/index';
+import TrainerHomeScreen from './screens/TrainerHomeScreen';
 
 
 function HomeScreen() {
@@ -35,12 +38,15 @@ export default function App() {
           }}
 
           >
+           
             <Stack.Screen name="StarterScreen" component={StarterScreen} options={{ title: '' }} />
             <Stack.Screen name="login" component={Login} options={{ title: '' }} />
             <Stack.Screen name="Signup" component={SignUp} options={{ title: 'Sign up' }} />
             <Stack.Screen name="Listings" component={Listings} />
             <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail} options={{ title: 'Sign in' }} />
             <Stack.Screen name="EmailVerification" component={EmailVerification} options={{ title: '' }} />
+            <Stack.Screen name="TrainerSignupDetails" component={TrainerSignupDetails} options={{ title: 'Enter details' }} />
+            <Stack.Screen name="TrainerHomeScreen" component={TrainerHomeScreen} options={{ title: '' }} />
           </Stack.Navigator>
 
         </NavigationContainer>
