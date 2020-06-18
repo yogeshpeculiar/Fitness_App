@@ -3,7 +3,7 @@ import {Text,TouchableOpacity,StyleSheet,TextInput,View,Image} from 'react-nativ
 import {addTrainerDetails} from '../src/API/methods';
 import * as ImagePicker from 'expo-image-picker';
 import defaultPic from '../assets/male_pic_default.jpg';
-import {uploadImage} from '../src/API/methods';
+import {uploadImage} from '../src/API';
 export default class TrainerSignupDetails extends Component{
 
     constructor(props) {
@@ -32,10 +32,14 @@ export default class TrainerSignupDetails extends Component{
       };
 
 
-  async submitPhoto(url){
-//    upload photo api should be called
-  }
-
+      async submitPhoto(path,token){
+        let result = await uploadImage(path,token);
+        if(result)
+        console.log('image insettion successful')
+        else
+        console.log('image insertion failed')
+      }
+  
     async submit(){
        
         if (this.state.height != 0) {
@@ -58,12 +62,17 @@ export default class TrainerSignupDetails extends Component{
         if(result)
        { 
            console.log('addTrainerdetails----------'+result)
-            this.props.navigation.navigate('TrainerHomeScreen')
+         this.props.route.params.setSignedIn(); //temp solution
         }
         else
         console.log('addTrainerdetails----------'+result)
 
-        this.submitPhoto(this.state.image); //for addin the photo
+        if (this.state.image != '') {
+            timage = JSON.stringify(this.state.image.text);
+            timage=timage.slice(1, -1);
+        }
+        const state = store.getState();
+        this.submitPhoto(timage,state.jwt);
     }
 
     

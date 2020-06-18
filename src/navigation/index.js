@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {connect} from "react-redux";
 
 const Stack = createStackNavigator();
-import * as actionCreators from  '../store/actions';
+import * as actionCreators from '../store/actions';
 
 import RouteNames from "./RouteNames";
 import TrainerListing from "../../screens/App/TrainerListing";
@@ -20,6 +20,7 @@ import TrainerSignupDetails from "../../screens/TrainerSignupDetails";
 import TrainerHomeScreen from "../../screens/TrainerHomeScreen";
 import {updateAxiosToken} from "../API/methods";
 
+
 class App extends React.Component {
   //connect this component to redux
   state = {
@@ -28,6 +29,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // this.props.resetAuth();
     const {authToken} = this.props;
     if (authToken) {
       this.setState({
@@ -41,6 +43,10 @@ class App extends React.Component {
         signedIn: false
       })
     }
+  }
+
+  setSignedIn = ()=> {
+    this.setState({signedIn:true});
   }
 
   render() {
@@ -64,22 +70,22 @@ class App extends React.Component {
         </NavigationContainer>
       );
     } else return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          headerStyle: {},
-        }}
-        >
-          <Stack.Screen name="login" component={Login} options={{title: ''}}/>
-          <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}}/>
-          <Stack.Screen name="Listings" component={Listings}/>
-          <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail}
-                        options={{title: 'Sign in'}}/>
-          <Stack.Screen name="EmailVerification" component={EmailVerification} options={{title: ''}}/>
-          <Stack.Screen name="TrainerSignupDetails" component={TrainerSignupDetails}
-                        options={{title: 'Enter details'}}/>
-          <Stack.Screen name="TrainerHomeScreen" component={TrainerHomeScreen} options={{title: ''}}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{
+            headerStyle: {},
+          }}
+          >
+            <Stack.Screen name="login" component={Login} options={{title: ''}}/>
+            <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}} initialParams={{setSignedIn:this.setSignedIn}}/>
+            <Stack.Screen name="Listings" component={Listings}/>
+            <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail} initialParams={{setSignedIn:this.setSignedIn}}
+                          options={{title: 'Sign in'}}/>
+            <Stack.Screen name="EmailVerification" component={EmailVerification} options={{title: ''}}/>
+            <Stack.Screen name="TrainerSignupDetails" component={TrainerSignupDetails} initialParams={{setSignedIn:this.setSignedIn}}
+                          options={{title: 'Enter details'}}/>
+            <Stack.Screen name="TrainerHomeScreen" component={TrainerHomeScreen} options={{title: ''}}/>
+          </Stack.Navigator>
+        </NavigationContainer>
     );
   }
 }
@@ -89,7 +95,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetAuth: ()=> dispatch(actionCreators.resetAuth())
+  resetAuth: () => dispatch(actionCreators.resetAuth())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,30 +1,25 @@
 import axios from './config';
-import { validateResponseCode } from "../utils/utils";
-import store from '../store/configureStore';
-import image from '../../assets/bg.jpg';
+import {validateResponseCode} from "../utils/utils";
 
 export const updateAxiosToken = (token) => {
   if (!token) {
-    console.log("Clearing axios token");
+    console.log("Clearing axios token", token);
     axios.defaults.headers.common['Authorization'] = '';
   } else {
-    console.log("updating axios token");
+    console.log("updating axios token", token);
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   }
 };
 
 export const registerTrainer = async (email, password) => {
   try {
-    let response = await axios.post('/register/Trainer', {
+    let response = await axios.post('/register/trainer', {
       email,
       password
     });
+    console.log(response)
     if (validateResponseCode(response.status)) {
-      console.log(response.data);
-      console.log('jwt token'+response.data.jwt)
-      store.dispatch({ type: 'SET_JWT', jwt: response.data.jwt})
-      updateAxiosToken(response.data.jwt)
-      return true; //success
+      return response.data;
     } else
       return false;
   } catch (error) {
@@ -35,14 +30,12 @@ export const registerTrainer = async (email, password) => {
 
 export const registerUser = async (email, password) => {
   try {
-     let response = await axios.post('/register/user', {
+    let response = await axios.post('/register/user', {
       email,
       password
     });
     if (validateResponseCode(response.status)) {
-      console.log(response.data);
-
-      return true; //success
+      return response.data;
     } else
       return false;
   } catch (error) {
@@ -54,21 +47,12 @@ export const registerUser = async (email, password) => {
 export const login = async (email, password) => {
   try {
     // username is email in this case
-  let response = await axios.post('/login', {
+    let response = await axios.post('/login', {
       username: email,
       password: password
-      // username: 'test@gmail.com',
-      // password: '123456'
     });
-
-
     if (validateResponseCode(response.status)) {
-      console.log(response.data)
-      // extract JWT from response and save it to storage, then pass token to updateAxiosToken
-
-      store.dispatch({ type: 'SET_JWT', jwt: response.data.token })
-      updateAxiosToken(response.data.token)
-      return true;
+      return response.data;
     } else
       return false;
   } catch (error) {
@@ -76,16 +60,11 @@ export const login = async (email, password) => {
     return false;
   }
 }
-
-
-// Experimental endpoint, to check if trainers are being created, a modification of this endpoint will later be used for Trainer listing
 export const listTrainers = async () => {
   try {
-    // username is email in this case
     let response = await axios.get('/trainers');
     if (validateResponseCode(response.status)) {
-      // extract JWT from response and save it
-      return response.data; // check this
+      return response.data;
     } else
       return false;
   } catch (error) {
@@ -94,18 +73,16 @@ export const listTrainers = async () => {
   }
 }
 
-export const addTrainerDetails = async (height,weight,experience,name) => {
+export const addTrainerDetails = async (height, weight, experience, name) => {
   try {
-     let response = await axios.put('/user', {
-      height:height,
-      weight:weight,
-      experience:experience,
-      name:name
+    let response = await axios.put('/user', {
+      height: height,
+      weight: weight,
+      experience: experience,
+      name: name
     });
     if (validateResponseCode(response.status)) {
-      console.log(response.data);
-
-      return true; //success
+      return response.data;
     } else
       return false;
   } catch (error) {
