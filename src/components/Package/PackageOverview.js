@@ -1,5 +1,8 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React, {useState} from 'react';
-import {Text, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import PropTypes from 'prop-types';
 import GenericText from "../GenericText";
 import strings, {priceBuilder} from "../../constants/strings";
@@ -72,9 +75,9 @@ const styles = StyleSheet.create({
   chevronContainer: {
     paddingTop: spacing.small
   },
-  separator:{
+  separator: {
     borderBottomWidth: 1,
-    paddingTop:spacing.medium,
+    paddingTop: spacing.medium,
     borderBottomColor: colors.lightGrey,
   },
   mainContentContainer: {
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.medium_sm
   },
   orderContainer: {
-    justifyContent:'space-around',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 1,
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.lightGrey,
     paddingTop: spacing.medium,
     paddingBottom: spacing.medium,
-    marginTop:spacing.medium_sm
+    marginTop: spacing.medium_sm
   }
 
 });

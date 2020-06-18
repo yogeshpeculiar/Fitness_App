@@ -1,10 +1,12 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React from 'react';
 import {StyleSheet, View} from 'react-native'
 import PropTypes from 'prop-types';
 import GenericText from "../GenericText";
 import strings, {durationBuilder, priceBuilder} from "../../constants/strings";
 import {spacing} from "../../constants/dimension";
-import colors from "../../constants/colors";
 
 const PackageMainContent = (props) => {
   const descriptionText = strings.DESCRIPTION + ': ' + props.description;

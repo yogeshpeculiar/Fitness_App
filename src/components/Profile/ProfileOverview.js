@@ -1,7 +1,9 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import GenericText from "../GenericText";
 import strings from "../../constants/strings";
 import {spacing} from "../../constants/dimension";

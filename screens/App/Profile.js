@@ -1,3 +1,6 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
@@ -66,7 +69,6 @@ class Profile extends Component {
   )
 
   render() {
-
     const {route, users} = this.props;
 
     const {userId} = route.params;

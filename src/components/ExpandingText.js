@@ -1,5 +1,8 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, TouchableOpacity} from 'react-native'
 import PropTypes from 'prop-types';
 import fontSizes from "../constants/fontSizes";
 import {textSlicer} from "../utils/utils";

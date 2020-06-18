@@ -1,3 +1,6 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React from 'react';
 import {View, StyleSheet} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
