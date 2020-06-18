@@ -10,18 +10,6 @@ import TrainerListing from "../../screens/App/TrainerListing";
 import Profile from "../../screens/App/Profile";
 import Packages from "../../screens/App/Packages";
 
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-
 class App extends React.Component {
   //connect this component to redux
   state = {
@@ -60,5 +48,3 @@ class App extends React.Component {
 
 
 export default App;
-
-import Storage from '../API/storage';

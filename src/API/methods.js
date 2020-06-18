@@ -1,7 +1,8 @@
 import axios from './config';
 import { validateResponseCode } from "../utils/utils";
-import store from '../Redux/Store/index';
+import store from '../store/configureStore';
 import image from '../../assets/bg.jpg';
+
 export const updateAxiosToken = (token) => {
   if (!token) {
     console.log("Clearing axios token");
@@ -21,7 +22,7 @@ export const registerTrainer = async (email, password) => {
     if (validateResponseCode(response.status)) {
       console.log(response.data);
       console.log('jwt token'+response.data.jwt)
-      store.dispatch({ type: 'ADD_JWT', jwt: response.data.jwt})
+      store.dispatch({ type: 'SET_JWT', jwt: response.data.jwt})
       updateAxiosToken(response.data.jwt)
       return true; //success
     } else
@@ -65,7 +66,7 @@ export const login = async (email, password) => {
       console.log(response.data)
       // extract JWT from response and save it to storage, then pass token to updateAxiosToken
 
-      store.dispatch({ type: 'ADD_JWT', jwt: response.data.token })
+      store.dispatch({ type: 'SET_JWT', jwt: response.data.token })
       updateAxiosToken(response.data.token)
       return true;
     } else

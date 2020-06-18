@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import store from '../src/Redux/Store/index';
+import store from '../src/store/configureStore';
 
 export default class starterScreen extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class starterScreen extends Component {
             this.props.navigation.navigate('login');
         else {
             this.props.navigation.navigate('Listings');
-            store.dispatch({ type: 'ADD_JWT', empty })
+            store.dispatch({ type: 'SET_JWT', empty })
         }
     }
     render() {

@@ -5,6 +5,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/lib/integration/react';
+
 import Listings from './screens/Listings';
 import Login from './screens/Login';
 import SignInWithRegisteredEmail from './screens/SignInWithRegisteredEmail';
@@ -13,8 +14,8 @@ import StarterScreen from './screens/starterScreen';
 import EmailVerification from './screens/EmailVerification';
 import TrainerSignupDetails from './screens/TrainerSignupDetails';
 
-import store from './src/Redux/Store';
-import { persistor } from './src/Redux/Store/index';
+import store from './src/store/configureStore';
+import { persistor } from './src/store/configureStore';
 import TrainerHomeScreen from './screens/TrainerHomeScreen';
 
 

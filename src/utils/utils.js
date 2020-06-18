@@ -15,3 +15,10 @@ export const getOSPath = (path) => {
   if (path.includes("content")) return path;
   return Platform.OS === "android" ? "file://" + path : path;
 };
+
+export const updateObject = (oldObject, updatedValues) => {
+  return {
+    ...oldObject,
+    ...updatedValues,
+  };
+};
