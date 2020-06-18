@@ -3,7 +3,7 @@ import {Text,TouchableOpacity,StyleSheet,TextInput,View,Image} from 'react-nativ
 import {addTrainerDetails} from '../src/API/methods';
 import * as ImagePicker from 'expo-image-picker';
 import defaultPic from '../assets/male_pic_default.jpg';
-import {uploadImage} from '../src/API/methods';
+import {uploadImage} from '../src/API';
 export default class TrainerSignupDetails extends Component{
 
     constructor(props) {
@@ -62,7 +62,7 @@ export default class TrainerSignupDetails extends Component{
         if(result)
        { 
            console.log('addTrainerdetails----------'+result)
-            this.props.navigation.navigate('TrainerHomeScreen')
+         this.props.route.params.setSignedIn(); //temp solution
         }
         else
         console.log('addTrainerdetails----------'+result)

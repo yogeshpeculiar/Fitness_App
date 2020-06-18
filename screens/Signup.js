@@ -8,8 +8,11 @@ import { CheckBox } from 'react-native-elements'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RadioForm from 'react-native-simple-radio-button';
 import uploadImage from '../src/API/methods';
+import * as actionCreators from "../src/store/actions";
+import {connect} from "react-redux";
+import RouteNames from "../src/navigation/RouteNames";
 
-export default class Signup extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,6 +32,7 @@ export default class Signup extends Component {
 
         }
     }
+
     changePasswordVisibility() {
         this.setState(
             prevState => ({
@@ -129,10 +133,8 @@ export default class Signup extends Component {
 
             console.log('-------------' + result);
             if (result) {
-                this.props.navigation.navigate('EmailVerification', {
-                    mail: this.state.email
-
-                })
+                this.props.setAuthToken(result.jwt);
+                this.props.route.params.setSignedIn(); //temp solution
             }
             else {
                 this.showMessage('signup failed')
@@ -141,8 +143,9 @@ export default class Signup extends Component {
         else{
 
             var result = await registerTrainer(temail,tpassword);
-             console.log('-------------' + result);
+             // console.log(result);
             if (result) {
+                this.props.setAuthToken(result.jwt);
                 this.props.navigation.navigate('TrainerSignupDetails')
             }
             else {
@@ -289,3 +292,12 @@ export default class Signup extends Component {
     }
 }
 
+
+const mapStateToProps = (state) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setAuthToken:(token)=>dispatch(actionCreators.setAuthToken(token))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

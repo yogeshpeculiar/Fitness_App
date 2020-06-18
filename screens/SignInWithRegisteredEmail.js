@@ -3,8 +3,10 @@ import {Text,View,TextInput,Button,ScrollView,KeyboardAvoidingView} from 'react-
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { login } from '../src/API/methods';
-export default class SignInWithRegisteredEmail extends Component{
+import { login } from '../src/API';
+import * as actionCreators from "../src/store/actions";
+import {connect} from "react-redux";
+ class SignInWithRegisteredEmail extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -43,7 +45,8 @@ export default class SignInWithRegisteredEmail extends Component{
       
         console.log('-------------'+result);
         if(result){
-            this.props.navigation.navigate('Listings')
+            this.props.setAuthToken(result.token);
+            this.props.route.params.setSignedIn(); //temp solution
         }
         else{
             return(
@@ -130,4 +133,13 @@ export default class SignInWithRegisteredEmail extends Component{
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setAuthToken:(token)=>dispatch(actionCreators.setAuthToken(token))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInWithRegisteredEmail);
 
