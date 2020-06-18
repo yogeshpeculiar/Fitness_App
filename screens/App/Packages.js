@@ -1,3 +1,6 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React, {Component} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native'
 import {connect} from "react-redux";

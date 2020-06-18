@@ -1,3 +1,6 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types';

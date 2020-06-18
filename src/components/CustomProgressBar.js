@@ -1,5 +1,7 @@
+/**
+ * @author Yatanvesh Bhardwaj <yatan.vesh@gmail.com>
+ */
 import React from 'react';
-import {Text, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types';
 import ProgressBar from 'react-native-progress/Bar';
 import colors from "../constants/colors";
