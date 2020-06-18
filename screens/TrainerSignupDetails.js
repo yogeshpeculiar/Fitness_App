@@ -32,10 +32,14 @@ export default class TrainerSignupDetails extends Component{
       };
 
 
-  async submitPhoto(url){
-//    upload photo api should be called
-  }
-
+      async submitPhoto(path,token){
+        let result = await uploadImage(path,token);
+        if(result)
+        console.log('image insettion successful')
+        else
+        console.log('image insertion failed')
+      }
+  
     async submit(){
        
         if (this.state.height != 0) {
@@ -63,7 +67,12 @@ export default class TrainerSignupDetails extends Component{
         else
         console.log('addTrainerdetails----------'+result)
 
-        // this.submitPhoto(this.state.image); //for addin the photo
+        if (this.state.image != '') {
+            timage = JSON.stringify(this.state.image.text);
+            timage=timage.slice(1, -1);
+        }
+        const state = store.getState();
+        this.submitPhoto(timage,state.jwt);
     }
 
     
