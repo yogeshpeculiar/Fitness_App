@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from "react-redux";
@@ -18,6 +17,7 @@ import SignInWithRegisteredEmail from "../../screens/SignInWithRegisteredEmail";
 import EmailVerification from "../../screens/EmailVerification";
 import TrainerSignupDetails from "../../screens/TrainerSignupDetails";
 import TrainerHomeScreen from "../../screens/TrainerHomeScreen";
+import {updateAxiosToken} from "../API/methods";
 
 class App extends React.Component {
   //connect this component to redux
@@ -33,6 +33,7 @@ class App extends React.Component {
         loading: false,
         signedIn: true
       })
+      updateAxiosToken(jwt);
     } else {
       this.setState({
         loading: false,
@@ -56,8 +57,8 @@ class App extends React.Component {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name={RouteNames.TrainerListing} component={TrainerListing} options={{title: 'Overview'}}/>
-            <Stack.Screen name={RouteNames.Profile} component={Profile} options={{gestureDirection: 'horizontal'}}/>
-            <Stack.Screen name={RouteNames.Packages} component={Packages} options={{gestureDirection: 'horizontal'}}/>
+            <Stack.Screen name={RouteNames.Profile} component={Profile}/>
+            <Stack.Screen name={RouteNames.Packages} component={Packages}/>
           </Stack.Navigator>
         </NavigationContainer>
       );
@@ -79,8 +80,6 @@ class App extends React.Component {
         </Stack.Navigator>
       </NavigationContainer>
     );
-
-
   }
 }
 
