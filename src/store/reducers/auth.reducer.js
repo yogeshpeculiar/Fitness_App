@@ -4,8 +4,10 @@ import {updateObject} from "../../utils/utils";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_JWT:
+    case actionTypes.SET_AUTH_TOKEN:
       return updateObject(state, action.payload);
+    case actionTypes.RESET_AUTH:
+      return initialState;
     default:
       return state;
   }

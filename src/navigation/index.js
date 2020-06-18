@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {connect} from "react-redux";
 
 const Stack = createStackNavigator();
+import * as actionCreators from  '../store/actions';
 
 import RouteNames from "./RouteNames";
 import TrainerListing from "../../screens/App/TrainerListing";
@@ -27,13 +28,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const {jwt} = this.props;
-    if (jwt) {
+    const {authToken} = this.props;
+    if (authToken) {
       this.setState({
         loading: false,
         signedIn: true
       })
-      updateAxiosToken(jwt);
+      updateAxiosToken(authToken);
     } else {
       this.setState({
         loading: false,
@@ -84,9 +85,11 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  jwt: state.auth.jwt
+  authToken: state.auth.authToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  resetAuth: ()=> dispatch(actionCreators.resetAuth())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
