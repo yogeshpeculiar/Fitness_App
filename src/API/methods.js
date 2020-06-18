@@ -117,7 +117,7 @@ export const addTrainerDetails = async (height,weight,experience,name) => {
 // export const uploadImage = async () => {
 // const state=store.getState();
 // RNFetchBlob.fetch('POST','/user/displayImage', {
-//   Authorization : state.jwt,
+//   Authorization : state.auth.jwt,
 //   'Content-Type' : 'multipart/form-data'
 // },[
 //   {name : 'image',

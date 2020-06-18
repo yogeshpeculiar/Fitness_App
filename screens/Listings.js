@@ -14,7 +14,7 @@ class Listings extends Component {
 
 function mapStateToProps(state) {
     return {
-        jwt: state.jwt
+        jwt: state.auth.jwt
     }
 }
 export default connect(mapStateToProps)(Listings)

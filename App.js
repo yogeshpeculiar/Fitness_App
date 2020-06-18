@@ -1,56 +1,19 @@
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View } from 'react-native';
+import 'react-native-gesture-handler';
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
-import Listings from './screens/Listings';
-import Login from './screens/Login';
-import SignInWithRegisteredEmail from './screens/SignInWithRegisteredEmail';
-import SignUp from './screens/Signup';
-import StarterScreen from './screens/starterScreen';
-import EmailVerification from './screens/EmailVerification';
-import TrainerSignupDetails from './screens/TrainerSignupDetails';
-
 import store from './src/store/configureStore';
 import { persistor } from './src/store/configureStore';
-import TrainerHomeScreen from './screens/TrainerHomeScreen';
+import Splash from "./screens/Auth/Splash";
+import AppStack from './src/navigation';
 
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
-const Stack = createStackNavigator();
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{
-            headerStyle: {
-
-            },
-          }}
-
-          >
-           
-            <Stack.Screen name="StarterScreen" component={StarterScreen} options={{ title: '' }} />
-            <Stack.Screen name="login" component={Login} options={{ title: '' }} />
-            <Stack.Screen name="Signup" component={SignUp} options={{ title: 'Sign up' }} />
-            <Stack.Screen name="Listings" component={Listings} />
-            <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail} options={{ title: 'Sign in' }} />
-            <Stack.Screen name="EmailVerification" component={EmailVerification} options={{ title: '' }} />
-            <Stack.Screen name="TrainerSignupDetails" component={TrainerSignupDetails} options={{ title: 'Enter details' }} />
-            <Stack.Screen name="TrainerHomeScreen" component={TrainerHomeScreen} options={{ title: '' }} />
-          </Stack.Navigator>
-
-        </NavigationContainer>
+      {/*insert loading later*/}
+      <PersistGate persistor={persistor}>
+          <AppStack/>
       </PersistGate>
     </Provider>
   );
