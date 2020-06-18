@@ -3,7 +3,7 @@ import {Text,TouchableOpacity,StyleSheet,TextInput,View,Image} from 'react-nativ
 import {addTrainerDetails} from '../src/API/methods';
 import * as ImagePicker from 'expo-image-picker';
 import defaultPic from '../assets/male_pic_default.jpg';
-import {uploadImage} from '../src/API/methods';
+// import {uploadImage} from '../src/API/storage';
 export default class TrainerSignupDetails extends Component{
 
     constructor(props) {
@@ -16,25 +16,29 @@ export default class TrainerSignupDetails extends Component{
            image:null
         }
     }
-    async pickImage () {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-        });
+    // async pickImage () {
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //       mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //       allowsEditing: true,
+    //       aspect: [4, 3],
+    //       quality: 1,
+    //     });
     
-        console.log(result);
+    //     console.log(result);
     
-        if (!result.cancelled) {
-          this.setState({image:result.uri});
-        }
-      };
+    //     if (!result.cancelled) {
+    //       this.setState({image:result.uri});
+    //     }
+    //   };
 
 
-  async submitPhoto(url){
-//    upload photo api should be called
-  }
+    //   async submitPhoto(path,token){
+    //     let result = await uploadImage(path,token);
+    //     if(result)
+    //     console.log('image insettion successful')
+    //     else
+    //     console.log('image insertion failed')
+    //   }
 
     async submit(){
        
@@ -63,7 +67,12 @@ export default class TrainerSignupDetails extends Component{
         else
         console.log('addTrainerdetails----------'+result)
 
-        this.submitPhoto(this.state.image); //for addin the photo
+        // if (this.state.image != '') {
+        //     timage = JSON.stringify(this.state.image.text);
+        //     timage=timage.slice(1, -1);
+        // }
+        // const state = store.getState();
+        // this.submitPhoto(timage,state.jwt); //for addin the photo
     }
 
     
@@ -73,7 +82,8 @@ export default class TrainerSignupDetails extends Component{
       
             <View style={styles.container}>
                  
-                <TouchableOpacity onPress={() => {this.pickImage(),console.log(this.state.image)}} style={styles.addPhoto}>
+                {/* <TouchableOpacity onPress={() => {this.pickImage(),console.log(this.state.image)}} style={styles.addPhoto}> */}
+                <TouchableOpacity onPress={() => {console.log(this.state.image)}} style={styles.addPhoto}>
                 {!this.state.image && <Image  source={defaultPic} style={{ width: 200, height: 200,borderRadius:100 }}/>}
                 {this.state.image && <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200,borderRadius:100 }} />}
                 </TouchableOpacity>
