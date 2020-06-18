@@ -63,7 +63,7 @@ export default class TrainerSignupDetails extends Component{
         else
         console.log('addTrainerdetails----------'+result)
 
-        this.submitPhoto(this.state.image); //for addin the photo
+        // this.submitPhoto(this.state.image); //for addin the photo
     }
 
     

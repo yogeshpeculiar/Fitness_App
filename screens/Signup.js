@@ -62,12 +62,12 @@ export default class Signup extends Component {
 
         var reg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-        if (this.state.name === "") {
-            this.setState(() => ({ nameError: "Name is required." }));
-            isValid = false;
-        }
-        else
-            this.setState(() => ({ nameError: null }));
+        // if (this.state.name === "") {
+        //     this.setState(() => ({ nameError: "Name is required." }));
+        //     isValid = false;
+        // }
+        // else
+        //     this.setState(() => ({ nameError: null }));
         if (this.state.email === "") {
             this.setState(() => ({ emailError: "Email is required." }));
             isValid = false;
