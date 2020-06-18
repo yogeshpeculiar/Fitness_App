@@ -6,7 +6,7 @@ class Listings extends Component {
     render() {
         return (
             <View>
-                <Text>{this.props.jwt}</Text>
+                <Text>{this.props.authToken}</Text>
             </View>
         );
     }
@@ -14,7 +14,7 @@ class Listings extends Component {
 
 function mapStateToProps(state) {
     return {
-        jwt: state.auth.jwt
+        authToken: state.auth.authToken
     }
 }
 export default connect(mapStateToProps)(Listings)

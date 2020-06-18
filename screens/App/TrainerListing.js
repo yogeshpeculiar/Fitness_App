@@ -1,51 +1,42 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity, StyleSheet, FlatList, Image, StatusBar} from 'react-native'
+import {connect} from "react-redux";
 
 import TrainerThumb from '../../src/components/Trainer/TrainerThumb';
 import colors from "../../src/constants/colors";
 import RouteNames from "../../src/navigation/RouteNames";
+import * as actionCreators from '../../src/store/actions';
+
+const defaultDP = 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038';
 
 class TrainerListing extends Component {
-  state = {
-    dataSource: {},
-  };
-
   componentDidMount() {
-    let items = Array.apply(null, Array(20)).map((v, i) => {
-      return {
-        id: i,
-        name: Math.random() > 0.5 ? 'Kalyan Battersetty' : 'Khushbu Dutta Gupta',
-        slots: {
-          used: 3,
-          remaining: 2,
-        },
-        dpUrl: Math.random() > 0.5 ? 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038' : 'https://www.pngitem.com/pimgs/m/28-288789_transparent-png-person-standing-standing-png-download.png',
-        experience: 123,
-        rating: 4.3
-      };
-    });
-
-    this.setState({
-      dataSource: items,
-    });
+    this.props.updateTrainers();
   }
 
-  openTrainer = () => {
+  openTrainer = (trainerId) => {
     const {navigation} = this.props;
-    navigation.navigate(RouteNames.Profile);
+    navigation.navigate(RouteNames.Profile,{
+      userId: trainerId
+    });
   }
 
   renderTrainerThumb = (trainer, index) => {
-    const {name, slots, dpUrl, experience, rating} = trainer;
+    let {name, totalSlots, usedSlots, experience, rating, displayPictureUrl} = trainer;
+    if (!displayPictureUrl) displayPictureUrl = defaultDP
+
     return <TouchableOpacity
       activeOpacity={0.7}
       style={index % 2 !== 0 && styles.itemSeparatorVertical}
-      onPress={() => this.openTrainer(trainer)}
+      onPress={() => this.openTrainer(trainer._id)}
     >
       <TrainerThumb
         name={name}
-        slots={slots}
-        dpUrl={dpUrl}
+        slots={{
+          remaining: totalSlots - usedSlots,
+          used: usedSlots
+        }}
+        dpUrl={displayPictureUrl}
         experience={experience}
         rating={rating}
       />
@@ -60,13 +51,13 @@ class TrainerListing extends Component {
         <FlatList
           contentContainerStyle={styles.container}
           style={{flex: 1}}
-          data={this.state.dataSource}
+          data={this.props.trainers}
           renderItem={({item, index}) => this.renderTrainerThumb(item, index)}
           numColumns={2}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => item._id}
           ItemSeparatorComponent={this.renderHorizontalSeparatorView}
         />
-        </>
+      </>
     );
   }
 }
@@ -87,4 +78,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TrainerListing;
+const mapStateToProps = (state) => ({
+  trainers: state.app.trainers
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateTrainers: () => dispatch(actionCreators.updateTrainers())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainerListing);

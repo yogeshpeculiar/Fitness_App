@@ -8,7 +8,13 @@ import {spacing as dimension} from "../../constants/dimension";
 
 const SlotPreview = (props) => {
   const {usedSlots, remainingSlots} = props;
-  const progress = usedSlots / (usedSlots + remainingSlots);
+  let progress = 1;
+  if(remainingSlots==0){
+    progress = 1;
+  }
+  else progress = usedSlots / (usedSlots + remainingSlots);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.slotTextContainer}>

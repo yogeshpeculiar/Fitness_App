@@ -133,3 +133,16 @@ export const addTrainerDetails = async (height,weight,experience,name) => {
 // })
 // }
 
+
+export const getUserInfo = async (userId) => {
+  try {
+    let response = await axios.get(`/user/${userId}`);
+    if (validateResponseCode(response.status)) {
+      return response.data;
+    } else
+      return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}

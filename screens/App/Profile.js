@@ -1,33 +1,57 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
+import {connect} from "react-redux";
 
-import background from '../../assets/bg.jpg';
+// import background from '../../assets/bg.jpg';
 import ProfileOverview from '../../src/components/Profile/ProfileOverview';
-import colors from "../../src/constants/colors";
 import RouteNames from "../../src/navigation/RouteNames";
+import * as actionCreators from '../../src/store/actions';
 
-const STATUS_BAR_HEIGHT =  0;
+const STATUS_BAR_HEIGHT = 0;
 const HEADER_HEIGHT = 64;
 const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
-
+const defaultDP = 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038';
 
 class Profile extends Component {
-  state = {
-    dataSource: {
-      name:'Sangeetha Thevar'
-    },
-  };
+  componentDidMount() {
+    const {route, setUser} = this.props;
+    const {userId} = route.params;
+    setUser(userId);
+  }
 
-  enrollClicked = (data)=> {
-    const {navigation} = this.props;
-    navigation.navigate(RouteNames.Packages);
+  enrollClicked = () => {
+    const {navigation, route} = this.props;
+    const {userId} = route.params;
+    navigation.navigate(RouteNames.Packages, {
+      userId
+    });
   }
 
   renderContent = () => {
+    const {route, users} = this.props;
+
+    const {userId} = route.params;
+    const user = users[userId];
+    if (!user) return (
+      <View style={styles.container}/>
+    )
+    let {name, userType, experience, rating, displayPictureUrl} = user;
+    if (!displayPictureUrl) displayPictureUrl = defaultDP;
+
     return (
       <View style={styles.container}>
         <ProfileOverview
+          name={name}
+          dpUrl={displayPictureUrl}
+          hits={{
+            transformations: experience,
+            rating: rating,
+            followers: 0,
+            following: 0
+          }}
+          description={"No description provided for this user"}
+          profileType={userType}
           enrollCallback={this.enrollClicked}
         />
       </View>
@@ -40,9 +64,16 @@ class Profile extends Component {
     </View>
   )
 
-
   render() {
-    const {name} = this.state.dataSource;
+
+    const {route, users} = this.props;
+
+    const {userId} = route.params;
+    const user = users[userId];
+
+    let { displayPictureUrl} = user;
+    if (!displayPictureUrl) displayPictureUrl = defaultDP;
+
     return (
       <View style={styles.container}>
         <ReactNativeParallaxHeader
@@ -53,7 +84,7 @@ class Profile extends Component {
           // title={name}
           // alwaysShowTitle={false}
           // titleStyle={styles.titleStyle}
-          backgroundImage={background}
+          backgroundImage={{uri:displayPictureUrl}}
           backgroundImageScale={1.2}
           // renderNavBar={this.renderNavBar}
           renderContent={this.renderContent}
@@ -101,7 +132,13 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = (state) => ({
+  trainers: state.app.trainers,
+  users: state.app.users
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (userId) => dispatch(actionCreators.setUser(userId))
+});
 
-
-export default Profile;
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
