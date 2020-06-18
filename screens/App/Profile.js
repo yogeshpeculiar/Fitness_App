@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import ProfileOverview from '../../src/components/Profile/ProfileOverview';
 import RouteNames from "../../src/navigation/RouteNames";
 import * as actionCreators from '../../src/store/actions';
+import Splash from "../Auth/Splash";
 
 const STATUS_BAR_HEIGHT = 0;
 const HEADER_HEIGHT = 64;
@@ -70,9 +71,10 @@ class Profile extends Component {
 
     const {userId} = route.params;
     const user = users[userId];
-
+    if(!user)return <Splash/>;
     let { displayPictureUrl} = user;
     if (!displayPictureUrl) displayPictureUrl = defaultDP;
+
 
     return (
       <View style={styles.container}>

@@ -8,12 +8,13 @@ import {spacing as dimension} from "../../constants/dimension";
 
 const SlotPreview = (props) => {
   const {usedSlots, remainingSlots} = props;
+
   let progress = 1;
-  if(remainingSlots==0){
+  if (remainingSlots == 0) {
     progress = 1;
   }
+  if (usedSlots == 0) progress = 0;
   else progress = usedSlots / (usedSlots + remainingSlots);
-
 
   return (
     <View style={styles.container}>
@@ -22,7 +23,7 @@ const SlotPreview = (props) => {
           {strings.SLOTS}
         </GenericText>
       </View>
-      <View style={{flex:1}}>
+      <View style={{flex: 1}}>
         <CustomProgressBar progress={progress}/>
       </View>
       <View style={styles.slotTextContainer}>
