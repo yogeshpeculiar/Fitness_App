@@ -1,11 +1,17 @@
 {
+  "name": "Gym",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "web": "expo start --web"
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
+    "react": "16.11.0",
+    "react-native": "0.62.2",
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/datetimepicker": "^2.4.1",
@@ -19,10 +25,8 @@
     "expo-splash-screen": "^0.2.3",
     "expo-updates": "~0.2.0",
     "prop-types": "^15.7.2",
-    "react": "~16.9.0",
     "react-bootstrap": "^1.0.1",
     "react-dom": "~16.9.0",
-    "react-native": "~0.61.5",
     "react-native-24h-timepicker": "^1.1.0",
     "react-native-agora": "^2.9.1-alpha.6",
     "react-native-elements": "^2.0.2",
@@ -52,12 +56,16 @@
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "babel-jest": "~25.2.6",
-    "babel-preset-expo": "~8.1.0",
-    "jest": "~25.2.6",
-    "react-native-clean-project": "^3.3.0",
-    "react-test-renderer": "~16.9.0"
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react-test-renderer": "16.11.0"
   },
-  "private": true
+  "jest": {
+    "preset": "react-native"
+  }
 }
