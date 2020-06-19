@@ -9,12 +9,17 @@ import TrainerThumb from '../../components/Trainer/TrainerThumb';
 import colors from "../../constants/colors";
 import RouteNames from "../../navigation/RouteNames";
 import * as actionCreators from '../../store/actions';
+import {rootURL} from "../../constants/appConstants";
+import {initialiseSocket} from "../../utils/utils";
 
 const defaultDP = 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038';
 
 class TrainerListing extends Component {
-  componentDidMount() {
-    this.props.updateTrainers();
+  async componentDidMount() {
+    const {updateTrainers, authToken} = this.props;
+    updateTrainers();
+    global.socket = await initialiseSocket(authToken);
+    // console.log(global.socket)
   }
 
   openTrainer = (trainerId) => {
@@ -82,11 +87,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  trainers: state.app.trainers
+  trainers: state.app.trainers,
+  authToken: state.user.authToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateTrainers: () => dispatch(actionCreators.updateTrainers())
+  updateTrainers: () => dispatch(actionCreators.updateTrainers()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainerListing);

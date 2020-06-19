@@ -1,5 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import {updateAxiosToken} from "../../API";
+import SocketIOClient from 'socket.io-client';
+import {CHANNELS, rootURL} from "../../constants/appConstants";
 
 export const setAuthTokenAction = (authToken) => ({
   type: actionTypes.SET_AUTH_TOKEN,
@@ -15,6 +17,6 @@ export const setAuthToken = (authToken) => {
   };
 };
 
-export const resetUser =() => ({
+export const resetUser = () => ({
   type: actionTypes.RESET_USER,
 });

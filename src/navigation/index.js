@@ -20,7 +20,7 @@ import TrainerSignupDetails from "../screens/Auth/TrainerSignupDetails";
 import TrainerHomeScreen from "../screens/Auth/TrainerHomeScreen";
 import {updateAxiosToken} from "../API";
 import VideoCall from "../screens/App/VideoCall";
-
+import { navigationRef } from './RootNavigation';
 
 class App extends React.Component {
   //connect this component to redux
@@ -30,8 +30,8 @@ class App extends React.Component {
 
   componentDidMount() {
     // this.props.resetAuth();
-    const {authToken, setAuthenticated} = this.props;
-    if (authToken) {
+    const {authToken, setAuthenticated,} = this.props;
+    if (!!authToken) {
       updateAxiosToken(authToken);
       setAuthenticated(true);
     }
@@ -45,7 +45,7 @@ class App extends React.Component {
     const {authenticated} = this.props;
     if (loading) {
       return (
-        <NavigationContainer>
+        <NavigationContainer  ref={navigationRef}>
           <Stack.Navigator>
             <Stack.Screen name={RouteNames.Splash} component={Splash}/>
           </Stack.Navigator>
@@ -53,7 +53,7 @@ class App extends React.Component {
       )
     } else if (authenticated) {
       return (
-        <NavigationContainer>
+        <NavigationContainer  ref={navigationRef}>
           <Stack.Navigator>
             <Stack.Screen name={RouteNames.TrainerListing} component={TrainerListing} options={{title: 'Overview'}}/>
             <Stack.Screen name={RouteNames.Profile} component={Profile}/>
@@ -63,7 +63,7 @@ class App extends React.Component {
         </NavigationContainer>
       );
     } else return (
-      <NavigationContainer>
+      <NavigationContainer  ref={navigationRef}>
         <Stack.Navigator screenOptions={{
           headerStyle: {},
         }}
@@ -91,7 +91,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   resetAuth: () => dispatch(actionCreators.resetAuth()),
-  setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value))
+  setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

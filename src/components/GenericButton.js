@@ -8,10 +8,15 @@ import colors from "../constants/colors";
 import {spacing} from "../constants/dimension";
 
 const GenericButton = (props) => {
-  const {textContent, onPress} = props;
+  const {textContent, disabled} = props;
+  const bgColorStyle = {
+    backgroundColor: disabled ? colors.darkGrey : colors.appBlue,
+
+  }
+
 
   return (
-    <TouchableOpacity activeOpacity={0.7}  onPress={onPress} style={styles.container}>
+    <TouchableOpacity activeOpacity={0.7}  {...props} style={[styles.container, bgColorStyle]}>
       <Text style={styles.textContentStyle}>{textContent}</Text>
     </TouchableOpacity>
   );
@@ -19,20 +24,19 @@ const GenericButton = (props) => {
 
 GenericButton.propTypes = {
   textContent: PropTypes.string.isRequired,
-  callback:PropTypes.func
+  callback: PropTypes.func
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.appBlue,
-    paddingLeft:spacing.medium_sm,
-    paddingRight:spacing.medium_sm,
-    paddingTop:spacing.small,
-    paddingBottom:spacing.small,
-    borderRadius:15
+    paddingLeft: spacing.medium_sm,
+    paddingRight: spacing.medium_sm,
+    paddingTop: spacing.small,
+    paddingBottom: spacing.small,
+    borderRadius: 15
   },
-  textContentStyle:{
-    color:'white'
+  textContentStyle: {
+    color: 'white'
   }
 });
 

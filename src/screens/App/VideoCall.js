@@ -15,12 +15,14 @@ const {
 class VideoCall extends Component {
   constructor(props) {
     super(props);
+
     const {params} = props.route;
+    const {AppID, ChannelName} = params;
     this.state = {
       peerIds: [],                                //Array for storing connected peers
       uid: Math.floor(Math.random() * 100),       //Generate a UID for local user
-      appid: params.AppID,                    //Enter the App ID generated from the Agora Website
-      channelName: params.ChannelName,        //Channel Name for the current session
+      appid: AppID,                    //Enter the App ID generated from the Agora Website
+      channelName: ChannelName,        //Channel Name for the current session
       vidMute: false,                             //State variable for Video Mute
       audMute: false,                             //State variable for Audio Mute
       joinSucceed: false,                         //State variable for storing success
@@ -54,6 +56,7 @@ class VideoCall extends Component {
       this.setState({
         peerIds: this.state.peerIds.filter(uid => uid !== data.uid), //remove peer ID from state array
       });
+      this.endCall();
     });
     RtcEngine.on('joinChannelSuccess', (data) => {                   //If Local user joins RTC channel
       RtcEngine.startPreview();                                      //Start RTC preview
@@ -120,7 +123,6 @@ class VideoCall extends Component {
    * @description Function to return the view for the app
    */
   videoView() {
-    console.log(this.state)
     return (
       <View style={{flex: 1}}>
         {
@@ -151,7 +153,7 @@ class VideoCall extends Component {
               <AgoraView style={{flex: 1}}
                          remoteUid={this.state.peerIds[0]} mode={1}/>
             </View>
-            : <Text>No users connected</Text>
+            : <Text>Attempting to connect</Text>
         }
         {
           !this.state.vidMute                                              //view for local video
