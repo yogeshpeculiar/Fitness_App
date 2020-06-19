@@ -56,6 +56,7 @@ class VideoCall extends Component {
       this.setState({
         peerIds: this.state.peerIds.filter(uid => uid !== data.uid), //remove peer ID from state array
       });
+      this.endCall();
     });
     RtcEngine.on('joinChannelSuccess', (data) => {                   //If Local user joins RTC channel
       RtcEngine.startPreview();                                      //Start RTC preview
@@ -122,7 +123,6 @@ class VideoCall extends Component {
    * @description Function to return the view for the app
    */
   videoView() {
-    console.log(this.state)
     return (
       <View style={{flex: 1}}>
         {
@@ -153,7 +153,7 @@ class VideoCall extends Component {
               <AgoraView style={{flex: 1}}
                          remoteUid={this.state.peerIds[0]} mode={1}/>
             </View>
-            : <Text>No users connected</Text>
+            : <Text>Attempting to connect</Text>
         }
         {
           !this.state.vidMute                                              //view for local video

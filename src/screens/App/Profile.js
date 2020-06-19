@@ -60,7 +60,6 @@ class Profile extends Component {
         userId
       })
 
-
     } else console.log("Cant initiate video call without permission")
   }
 
