@@ -5,9 +5,9 @@ import React, {Component} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native'
 import {connect} from "react-redux";
 
-import PackageOverview from '../../src/components/Package/PackageOverview';
-import {spacing} from "../../src/constants/dimension";
-import * as actionCreators from "../../src/store/actions";
+import PackageOverview from '../../components/Package/PackageOverview';
+import {spacing} from "../../constants/dimension";
+import * as actionCreators from "../../store/actions";
 
 class Packages extends Component {
   packageSelected = () => {

@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import store from './src/store/configureStore';
 import { persistor } from './src/store/configureStore';
-import Splash from "./screens/Auth/Splash";
+import Splash from "./src/screens/Auth/Splash";
 import AppStack from './src/navigation';
 
 export default function App() {

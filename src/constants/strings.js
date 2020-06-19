@@ -19,7 +19,8 @@ const strings = {
   PRICE:'PRICE',
   DESCRIPTION:'DESCRIPTION',
   PLAN_PRICE:'Plan price :',
-  PROCEED:'Proceed'
+  PROCEED:'Proceed',
+  CALL:'Call'
 };
 
 export default strings;

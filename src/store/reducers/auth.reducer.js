@@ -4,7 +4,7 @@ import {updateObject} from "../../utils/utils";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_AUTH_TOKEN:
+    case actionTypes.SET_AUTHENTICATED:
       return updateObject(state, action.payload);
     case actionTypes.RESET_AUTH:
       return initialState;

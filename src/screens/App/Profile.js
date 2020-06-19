@@ -7,10 +7,11 @@ import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import {connect} from "react-redux";
 
 // import background from '../../assets/bg.jpg';
-import ProfileOverview from '../../src/components/Profile/ProfileOverview';
-import RouteNames from "../../src/navigation/RouteNames";
-import * as actionCreators from '../../src/store/actions';
+import ProfileOverview from '../../components/Profile/ProfileOverview';
+import RouteNames from "../../navigation/RouteNames";
+import * as actionCreators from '../../store/actions';
 import Splash from "../Auth/Splash";
+import requestCameraAndAudioPermission from "../../utils/permission";
 
 const STATUS_BAR_HEIGHT = 0;
 const HEADER_HEIGHT = 64;
@@ -30,6 +31,18 @@ class Profile extends Component {
     navigation.navigate(RouteNames.Packages, {
       userId
     });
+  }
+
+  callClicked = async () => {
+    const {navigation, route} = this.props;
+    const {userId} = route.params;
+    const permissionGranted = await requestCameraAndAudioPermission();;
+    if(permissionGranted){
+      navigation.navigate(RouteNames.VideoCall, {
+        AppID: 'de359ae21a884e08a18e38476b54ccea',
+        ChannelName: 'test'
+      })
+    }else console.log("Cant initiate video call without permission")
   }
 
   renderContent = () => {
@@ -57,6 +70,7 @@ class Profile extends Component {
           description={"No description provided for this user"}
           profileType={userType}
           enrollCallback={this.enrollClicked}
+          followCallback={this.callClicked}
         />
       </View>
     )
@@ -73,8 +87,8 @@ class Profile extends Component {
 
     const {userId} = route.params;
     const user = users[userId];
-    if(!user)return <Splash/>;
-    let { displayPictureUrl} = user;
+    if (!user) return <Splash/>;
+    let {displayPictureUrl} = user;
     if (!displayPictureUrl) displayPictureUrl = defaultDP;
 
 
@@ -88,7 +102,7 @@ class Profile extends Component {
           // title={name}
           // alwaysShowTitle={false}
           // titleStyle={styles.titleStyle}
-          backgroundImage={{uri:displayPictureUrl}}
+          backgroundImage={{uri: displayPictureUrl}}
           backgroundImageScale={1.2}
           // renderNavBar={this.renderNavBar}
           renderContent={this.renderContent}

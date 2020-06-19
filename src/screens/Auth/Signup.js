@@ -3,14 +3,14 @@ import { Text, View, TextInput, ToastAndroid, Platform, AlertIOS } from 'react-n
 import { TouchableOpacity, FlingGestureHandler } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { registerUser, registerTrainer, addTrainerDetails } from '../src/API/methods';
+import { registerUser, registerTrainer, addTrainerDetails } from '../../API/methods';
 import { CheckBox } from 'react-native-elements'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RadioForm from 'react-native-simple-radio-button';
-import uploadImage from '../src/API/methods';
-import * as actionCreators from "../src/store/actions";
+import uploadImage from '../../API/methods';
+import * as actionCreators from "../../store/actions";
 import {connect} from "react-redux";
-import RouteNames from "../src/navigation/RouteNames";
+import RouteNames from "../../navigation/RouteNames";
 
 class Signup extends Component {
     constructor(props) {
@@ -134,7 +134,7 @@ class Signup extends Component {
             console.log('-------------' + result);
             if (result) {
                 this.props.setAuthToken(result.jwt);
-                this.props.route.params.setSignedIn(); //temp solution
+                this.props.setAuthenticated(true);
             }
             else {
                 this.showMessage('signup failed')
@@ -279,15 +279,8 @@ class Signup extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-
-
-
-
                 </View>
             </KeyboardAwareScrollView>
-
-
-
         );
     }
 }
@@ -297,7 +290,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAuthToken:(token)=>dispatch(actionCreators.setAuthToken(token))
+    setAuthToken:(token)=>dispatch(actionCreators.setAuthToken(token)),
+    setAuthenticated: (value)=> dispatch(actionCreators.setAuthenticated(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

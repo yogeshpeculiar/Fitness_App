@@ -22,8 +22,7 @@ const ProfileOverview = (props) => {
           name={props.name}
           dpUrl={props.dpUrl}
           enrollCallback={props.enrollCallback}
-          followCallback={() => {
-          }}
+          followCallback={props.followCallback}
         />
       </View>
       <View style={styles.profileHitsContainer}>

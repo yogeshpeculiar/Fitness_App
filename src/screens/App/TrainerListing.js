@@ -5,10 +5,10 @@ import React, {Component} from 'react';
 import {View, TouchableOpacity, StyleSheet, FlatList, Image, StatusBar} from 'react-native'
 import {connect} from "react-redux";
 
-import TrainerThumb from '../../src/components/Trainer/TrainerThumb';
-import colors from "../../src/constants/colors";
-import RouteNames from "../../src/navigation/RouteNames";
-import * as actionCreators from '../../src/store/actions';
+import TrainerThumb from '../../components/Trainer/TrainerThumb';
+import colors from "../../constants/colors";
+import RouteNames from "../../navigation/RouteNames";
+import * as actionCreators from '../../store/actions';
 
 const defaultDP = 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038';
 
@@ -19,7 +19,7 @@ class TrainerListing extends Component {
 
   openTrainer = (trainerId) => {
     const {navigation} = this.props;
-    navigation.navigate(RouteNames.Profile,{
+    navigation.navigate(RouteNames.Profile, {
       userId: trainerId
     });
   }
