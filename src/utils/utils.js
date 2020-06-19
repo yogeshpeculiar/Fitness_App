@@ -1,3 +1,7 @@
+import SocketIOClient from "socket.io-client";
+import {CHANNELS, rootURL} from "../constants/appConstants";
+import {navigate} from '../navigation/RootNavigation';
+import RouteNames from "../navigation/RouteNames";
 export const validateResponseCode = (code) => {
   return Math.floor(code / 100) === 2;
 };
@@ -22,3 +26,26 @@ export const updateObject = (oldObject, updatedValues) => {
     ...updatedValues,
   };
 };
+
+export const initialiseSocket = (authToken) => {
+  if (authToken==='') {
+    console.log("Cannot initialise a socket without auth token. exiting");
+    return false;
+  }
+  const socket = SocketIOClient(rootURL);
+  // socket.authToken = authToken/;
+  socket.on('connect', function(data) {
+    // console.log(socket)
+    socket.emit(CHANNELS.STORE_CLIENT_INFO, {authToken});
+  });
+  socket.on(CHANNELS.INITIATE_VIDEO_CALL, data => {
+    const {sessionID} = data;
+    navigate(RouteNames.VideoCall, {
+        AppID: 'de359ae21a884e08a18e38476b54ccea',
+        ChannelName: sessionID
+      }
+    )
+  })
+  return socket;
+}
+

@@ -6,6 +6,12 @@ import auth from "./auth.reducer";
 import user from "./user.reducer";
 import app from "./app.reducer";
 
+
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage
+};
+
 const rootPersistConfig = {
   key: "root",
   version: 1,
@@ -14,7 +20,7 @@ const rootPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  auth,
+  auth:persistReducer(authPersistConfig,auth),
   user,
   app,
 });

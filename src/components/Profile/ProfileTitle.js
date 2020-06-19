@@ -11,6 +11,10 @@ import {spacing} from "../../constants/dimension";
 import GenericButton from "../GenericButton";
 
 const ProfileTitle = (props) => {
+
+  const onlineCircleColor = {
+    backgroundColor: props.userOnline ? 'green' : 'red'
+  }
   return (
     <View style={styles.container}>
       <View style={styles.dpContainer}>
@@ -19,11 +23,15 @@ const ProfileTitle = (props) => {
       <View style={styles.mainContent}>
         <View style={styles.nameContainer}>
           <GenericText type={GenericText.types.headingBold}>{props.name}</GenericText>
+          <View style={styles.onlineCircleContainer}>
+            <View style={[styles.onlineCircle, onlineCircleColor]}/>
+          </View>
         </View>
         <View style={styles.buttonGroup}>
           <View style={styles.buttonContainer}>
             <GenericButton
-              onPress={props.followCallback}
+              disabled={!props.userOnline}
+              onPress={props.initiateVideoCallCallback}
               textContent={strings.CALL}/>
           </View>
           <View style={styles.buttonContainer}>
@@ -32,6 +40,7 @@ const ProfileTitle = (props) => {
               textContent={strings.ENROLL}
             />
           </View>
+
         </View>
       </View>
     </View>
@@ -41,8 +50,8 @@ const ProfileTitle = (props) => {
 ProfileTitle.propTypes = {
   name: PropTypes.string.isRequired,
   dpUrl: PropTypes.string.isRequired,
-  followCallback: PropTypes.func,
-  enrollCallback: PropTypes.func
+  enrollCallback: PropTypes.func,
+  initiateVideoCallCallback: PropTypes.func
 };
 
 const styles = StyleSheet.create({
@@ -60,14 +69,26 @@ const styles = StyleSheet.create({
     marginRight: spacing.medium
   },
   nameContainer: {
-    marginBottom: spacing.small
+    marginBottom: spacing.small,
+    flexDirection:'row'
   },
   buttonGroup: {
     flexDirection: 'row',
     marginTop: spacing.small_sm,
   },
   buttonContainer: {
-    marginRight: spacing.medium_sm
+    marginRight: spacing.medium_sm,
+
+  },
+  onlineCircleContainer:{
+    marginLeft:spacing.medium_sm,
+    alignContent:'center',
+    justifyContent:'center'
+  },
+  onlineCircle: {
+    height:15,
+    width:15,
+    borderRadius:8
   }
 });
 

@@ -22,7 +22,8 @@ const ProfileOverview = (props) => {
           name={props.name}
           dpUrl={props.dpUrl}
           enrollCallback={props.enrollCallback}
-          followCallback={props.followCallback}
+          initiateVideoCallCallback={props.initiateVideoCallCallback}
+          userOnline={props.userOnline}
         />
       </View>
       <View style={styles.profileHitsContainer}>
@@ -70,7 +71,8 @@ ProfileOverview.propTypes = {
     rating: PropTypes.number.isRequired,
   }),
   enrollCallback: PropTypes.func,
-  followCallback: PropTypes.func
+  initiateVideoCallCallback: PropTypes.func,
+  userOnline:PropTypes.bool
 };
 
 ProfileOverview.defaultProps = {
@@ -84,7 +86,8 @@ ProfileOverview.defaultProps = {
   },
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sapien neque, auctor sit amet odio sit amet, euismod placerat augue. Aenean molestie est neque, quis commodo leo semper sit amet. Mauris nec neque et ex posuere viverra. Sed auctor faucibus nisi sit amet varius. Nullam lacinia, nulla sed pulvinar scelerisque, est libero pulvinar ligula, et auctor eros ipsum vel tortor. Vivamus massa neque, ullamcorper in purus at, placerat euismod est. Aliquam sodales neque et malesuada finibus. Aliquam libero tortor, venenatis sit amet dapibus ac, rhoncus in quam. Pellentesque pretium eros justo, nec accumsan dolor facilisis sed. Sed et augue ut lorem rhoncus ultrices. Duis condimentum aliquet finibus. Praesent iaculis justo ut elit feugiat ultricies. Nulla consequat diam elit, a auctor urna convallis gravida. Nulla facilisi. Sed porttitor pulvinar sapien sed venenatis.',
   speciality: ['Fat-loss', 'Transformation', 'General well being'],
-  profileType: 'TRAINER'
+  profileType: 'TRAINER',
+  userOnline:false
 }
 
 const styles = StyleSheet.create({

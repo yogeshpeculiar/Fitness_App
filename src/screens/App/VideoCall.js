@@ -15,12 +15,14 @@ const {
 class VideoCall extends Component {
   constructor(props) {
     super(props);
+
     const {params} = props.route;
+    const {AppID, ChannelName} = params;
     this.state = {
       peerIds: [],                                //Array for storing connected peers
       uid: Math.floor(Math.random() * 100),       //Generate a UID for local user
-      appid: params.AppID,                    //Enter the App ID generated from the Agora Website
-      channelName: params.ChannelName,        //Channel Name for the current session
+      appid: AppID,                    //Enter the App ID generated from the Agora Website
+      channelName: ChannelName,        //Channel Name for the current session
       vidMute: false,                             //State variable for Video Mute
       audMute: false,                             //State variable for Audio Mute
       joinSucceed: false,                         //State variable for storing success
