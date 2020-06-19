@@ -1,7 +1,12 @@
 export {
-  setAuthToken,
+  setAuthenticated,
   resetAuth
 } from "./auth.actions";
+
+export {
+  setAuthToken,
+  resetUser
+} from "./user.actions";
 
 export {
   setTrainers,

@@ -14,7 +14,7 @@ class Listings extends Component {
 
 function mapStateToProps(state) {
     return {
-        authToken: state.auth.authToken
+        authToken: state.user.authToken
     }
 }
 export default connect(mapStateToProps)(Listings)

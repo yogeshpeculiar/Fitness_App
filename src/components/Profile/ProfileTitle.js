@@ -24,7 +24,7 @@ const ProfileTitle = (props) => {
           <View style={styles.buttonContainer}>
             <GenericButton
               onPress={props.followCallback}
-              textContent={strings.FOLLOW}/>
+              textContent={strings.CALL}/>
           </View>
           <View style={styles.buttonContainer}>
             <GenericButton

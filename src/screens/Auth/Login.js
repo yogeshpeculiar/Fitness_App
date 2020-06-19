@@ -1,7 +1,7 @@
 import React, { useState,Component } from 'react';
 import {Text,View} from 'react-native';
-import LoginElement from '../src/components/Login/LoginElement';
-import LoginFooter from '../src/components/Login/LoginFooter';
+import LoginElement from '../../components/Login/LoginElement';
+import LoginFooter from '../../components/Login/LoginFooter';
 export default class Login extends Component{
     constructor(props){
         super(props);
