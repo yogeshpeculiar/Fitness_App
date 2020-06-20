@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {View, StyleSheet, NativeModules, ScrollView, Text, Dimensions, TouchableOpacity} from 'react-native';
 import {RtcEngine, AgoraView} from 'react-native-agora';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {callTimeout, videoFeedConfig} from "../../constants/appConstants";
+import strings from "../../constants/strings";
+import {customDelay} from "../../utils/utils";
 
 const {Agora} = NativeModules;                  //Define Agora object as a native module
 
@@ -15,9 +18,10 @@ const {
 class VideoCall extends Component {
   constructor(props) {
     super(props);
-
     const {params} = props.route;
-    const {AppID, ChannelName} = params;
+    const {AppID, ChannelName, videoConfig = videoFeedConfig} = params;
+    console.log(videoConfig.width)
+
     this.state = {
       peerIds: [],                                //Array for storing connected peers
       uid: Math.floor(Math.random() * 100),       //Generate a UID for local user
@@ -26,15 +30,16 @@ class VideoCall extends Component {
       vidMute: false,                             //State variable for Video Mute
       audMute: false,                             //State variable for Audio Mute
       joinSucceed: false,                         //State variable for storing success
+      infoText: strings.WAITING_FOR_USERS
     };
     const config = {                            //Setting config of the app
       appid: this.state.appid,                  //App ID
       channelProfile: 0,                        //Set channel profile as 0 for RTC
       videoEncoderConfig: {                     //Set Video feed encoder settings
-        width: 720,
-        height: 1080,
-        bitrate: 1,
-        frameRate: FPS30,
+        width: videoConfig.width,
+        height: videoConfig.height,
+        bitrate: videoConfig.bitrate,
+        frameRate: videoConfig.FPS,
         orientationMode: Adaptative,
       },
       audioProfile: AudioProfileDefault,
@@ -43,7 +48,21 @@ class VideoCall extends Component {
     RtcEngine.init(config);                     //Initialize the RTC engine
   }
 
+  handleCallTimeout = async () => {
+    if (this.state.peerIds.length === 0) {
+      this.setState({infoText: strings.CALL_TIMEOUT});
+      await customDelay(1000);
+      this.endCall();
+    }
+  }
+
+  switchCamera = () => {
+    RtcEngine.switchCamera();
+  }
+
   componentDidMount() {
+    setTimeout(this.handleCallTimeout, callTimeout);
+
     RtcEngine.on('userJoined', (data) => {
       const {peerIds} = this.state;             //Get currrent peer IDs
       if (peerIds.indexOf(data.uid) === -1) {     //If new user has joined
@@ -123,6 +142,7 @@ class VideoCall extends Component {
    * @description Function to return the view for the app
    */
   videoView() {
+    const localVideoStyle = this.state.peerIds.length > 0 ? styles.localVideoStyle : {flex: 1};
     return (
       <View style={{flex: 1}}>
         {
@@ -153,11 +173,11 @@ class VideoCall extends Component {
               <AgoraView style={{flex: 1}}
                          remoteUid={this.state.peerIds[0]} mode={1}/>
             </View>
-            : <Text>Attempting to connect</Text>
+            : <Text style={{textAlign: 'center'}}>{this.state.infoText}</Text>
         }
         {
           !this.state.vidMute                                              //view for local video
-            ? <AgoraView style={styles.localVideoStyle} zOrderMediaOverlay={true} showLocalVideo={true} mode={1}/>
+            ? <AgoraView style={localVideoStyle} zOrderMediaOverlay={true} showLocalVideo={true} mode={1}/>
             : <View/>
         }
         <View style={styles.buttonBar}>
@@ -175,6 +195,11 @@ class VideoCall extends Component {
                        backgroundColor="#0093E9"
                        name={this.state.vidMute ? 'videocam-off' : 'videocam'}
                        onPress={() => this.toggleVideo()}
+          />
+          <Icon.Button style={styles.iconStyle}
+                       backgroundColor="#0093E9"
+                       name={'switch-camera'}
+                       onPress={() => this.switchCamera()}
           />
         </View>
       </View>
@@ -201,7 +226,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignContent: 'center',
   },
   localVideoStyle: {
@@ -215,8 +240,8 @@ const styles = StyleSheet.create({
   iconStyle: {
     fontSize: 34,
     paddingTop: 15,
-    paddingLeft: 40,
-    paddingRight: 40,
+    // paddingLeft: 20,
+    // paddingRight: 20,
     paddingBottom: 15,
     borderRadius: 0,
   },

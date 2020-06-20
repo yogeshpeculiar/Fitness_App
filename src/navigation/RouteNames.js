@@ -7,7 +7,8 @@ const RouteNames = {
   TrainerListing:'TrainerListing',
   Profile:'Profile',
   Packages:'Packages',
-  VideoCall:'VideoCall'
+  VideoCall:'VideoCall',
+  VideoTester:'VideoTester'
 };
 
 export default RouteNames;

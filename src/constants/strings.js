@@ -20,7 +20,9 @@ const strings = {
   DESCRIPTION:'DESCRIPTION',
   PLAN_PRICE:'Plan price :',
   PROCEED:'Proceed',
-  CALL:'Call'
+  CALL:'Call',
+  WAITING_FOR_USERS:'Waiting for user to join',
+  CALL_TIMEOUT:'Call timeout, ending call.'
 };
 
 export default strings;
