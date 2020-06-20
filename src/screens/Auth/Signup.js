@@ -3,7 +3,7 @@ import { Text, View, TextInput, ToastAndroid, Platform, AlertIOS } from 'react-n
 import { TouchableOpacity, FlingGestureHandler } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { registerUser, registerTrainer, addTrainerDetails } from '../../API/methods';
+import { registerUser, registerTrainer, addTrainerDetails } from '../../API';
 import { CheckBox } from 'react-native-elements'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RadioForm from 'react-native-simple-radio-button';
