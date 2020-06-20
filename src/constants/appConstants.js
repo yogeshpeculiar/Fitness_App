@@ -10,3 +10,12 @@ export const CHANNELS = {
   INITIATE_VIDEO_CALL:'INITIATE_VIDEO_CALL',
   CONFIRM_VIDEO_CALL:'CONFIRM_VIDEO_CALL'
 }
+
+export const videoFeedConfig = {
+  width:720,
+  height:1080,
+  bitrate:1,
+  FPS:30
+}
+
+export const callTimeout = 30000; //30 secs

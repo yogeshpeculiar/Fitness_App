@@ -75,3 +75,4 @@ export const initialiseSocket = (authToken) => {
   return socket;
 }
 
+export const customDelay = (duration) => new Promise((resolve) => setTimeout(resolve, duration));

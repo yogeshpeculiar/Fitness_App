@@ -20,12 +20,14 @@ import TrainerSignupDetails from "../screens/Auth/TrainerSignupDetails";
 import TrainerHomeScreen from "../screens/Auth/TrainerHomeScreen";
 import {updateAxiosToken} from "../API";
 import VideoCall from "../screens/App/VideoCall";
-import { navigationRef } from './RootNavigation';
+import VideoTester from "../screens/App/VideoTester";
+import {navigationRef} from './RootNavigation';
 
 class App extends React.Component {
   //connect this component to redux
   state = {
     loading: true,
+    videoTestMode: false // set this to true to enter video testing mode
   }
 
   componentDidMount() {
@@ -41,11 +43,23 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.videoTestMode)
+      return (
+        <NavigationContainer ref={navigationRef}>
+          <Stack.Navigator  screenOptions={{
+            headerShown: false
+          }}>
+            <Stack.Screen name={RouteNames.VideoTester} component={VideoTester}/>
+            <Stack.Screen name={RouteNames.VideoCall} component={VideoCall} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      )
+
     const {loading} = this.state;
     const {authenticated} = this.props;
     if (loading) {
       return (
-        <NavigationContainer  ref={navigationRef}>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
             <Stack.Screen name={RouteNames.Splash} component={Splash}/>
           </Stack.Navigator>
@@ -53,7 +67,7 @@ class App extends React.Component {
       )
     } else if (authenticated) {
       return (
-        <NavigationContainer  ref={navigationRef}>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
             <Stack.Screen name={RouteNames.TrainerListing} component={TrainerListing} options={{title: 'Overview'}}/>
             <Stack.Screen name={RouteNames.Profile} component={Profile}/>
@@ -63,7 +77,7 @@ class App extends React.Component {
         </NavigationContainer>
       );
     } else return (
-      <NavigationContainer  ref={navigationRef}>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator screenOptions={{
           headerStyle: {},
         }}
