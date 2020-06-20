@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-native-gesture-handler';
 import {Provider} from "react-redux";
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import FlashMessage from "react-native-flash-message";
