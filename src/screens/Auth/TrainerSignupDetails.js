@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import {Text, TouchableOpacity, StyleSheet, TextInput, View, Image} from 'react-native';
 import {addTrainerDetails} from '../../API';
-import * as ImagePicker from 'expo-image-picker';
+// import * as ImagePicker from 'expo-image-picker';
 import defaultPic from '../../../assets/male_pic_default.jpg';
 import {uploadImage} from '../../API';
 import {connect} from "react-redux";
@@ -21,18 +21,18 @@ class TrainerSignupDetails extends Component {
   }
 
   async pickImage() {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.setState({image: result.uri});
-    }
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   allowsEditing: true,
+    //   aspect: [4, 3],
+    //   quality: 1,
+    // });
+    //
+    // console.log(result);
+    //
+    // if (!result.cancelled) {
+    //   this.setState({image: result.uri});
+    // }
   };
 
 
