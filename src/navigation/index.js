@@ -82,6 +82,7 @@ class App extends React.Component {
           headerStyle: {},
         }}
         >
+          
           <Stack.Screen name="login" component={Login} options={{title: ''}}/>
           <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}}/>
           <Stack.Screen name="Listings" component={Listings}/>
@@ -93,6 +94,7 @@ class App extends React.Component {
                         options={{title: 'Enter details'}}/>
           <Stack.Screen name="TrainerHomeScreen" component={TrainerHomeScreen} options={{title: ''}}/>
         </Stack.Navigator>
+    
       </NavigationContainer>
     );
   }

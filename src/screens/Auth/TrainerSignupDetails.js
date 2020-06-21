@@ -2,6 +2,7 @@ import React, {useState, Component} from 'react';
 import {Text, TouchableOpacity, StyleSheet, TextInput, View, Image} from 'react-native';
 import {addTrainerDetails} from '../../API';
 // import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'react-native-image-picker';
 import defaultPic from '../../../assets/male_pic_default.jpg';
 import {uploadImage} from '../../API';
 import {connect} from "react-redux";
@@ -20,20 +21,28 @@ class TrainerSignupDetails extends Component {
     }
   }
 
-  async pickImage() {
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    //   quality: 1,
-    // });
-    //
-    // console.log(result);
-    //
-    // if (!result.cancelled) {
-    //   this.setState({image: result.uri});
-    // }
+   pickImage() {
+    const options = {
+    };
+    ImagePicker.showImagePicker( options , (response) => {
+      console.log('Response = ', response);
+     
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        console.log('image url----------'+JSON.stringify(response.uri))
+        this.setState({
+          image: response.uri,
+        });
+        console.log('image modified url----------'+JSON.stringify(this.state.image))
+      }
+    });
   };
+  
 
 
   async submitPhoto(path, token) {
@@ -69,16 +78,14 @@ class TrainerSignupDetails extends Component {
     } else
       console.log('addTrainerdetails----------' + result)
 
-    if (this.state.image != '') {
-      timage = JSON.stringify(this.state.image.text);
-      timage = timage.slice(1, -1);
-    }
     const state = store.getState();
-    this.submitPhoto(timage, state.jwt);
+    console.log('image modified url----------'+JSON.stringify(this.state.image))
+    this.submitPhoto(this.state.image, state.jwt);
   }
 
 
   render() {
+   
 
     return (
 
@@ -89,7 +96,7 @@ class TrainerSignupDetails extends Component {
         }} style={styles.addPhoto}>
           {!this.state.image && <Image source={defaultPic} style={{width: 200, height: 200, borderRadius: 100}}/>}
           {this.state.image &&
-          <Image source={{uri: this.state.image}} style={{width: 200, height: 200, borderRadius: 100}}/>}
+          <Image source={{uri: this.state.image}} style={{width: 200, height: 200, borderRadius: 100}}/> } 
         </TouchableOpacity>
 
 

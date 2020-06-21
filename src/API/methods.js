@@ -91,24 +91,24 @@ export const addTrainerDetails = async (height, weight, experience, name) => {
   }
 };
 
-// export const uploadImage = async () => {
-// const state=store.getState();
-// RNFetchBlob.fetch('POST','/user/displayImage', {
-//   Authorization : state.auth.jwt,
-//   'Content-Type' : 'multipart/form-data'
-// },[
-//   {name : 'image',
-//   filename : 'photo.png',
-//   data: RNFetchBlob.wrap(image)
-// }
-// ]).then((resp) => {
-//   return true;
+export const uploadImage = async () => {
+const state=store.getState();
+RNFetchBlob.fetch('POST','/user/displayImage', {
+  Authorization : state.auth.jwt,
+  'Content-Type' : 'multipart/form-data'
+},[
+  {name : 'image',
+  filename : 'photo.png',
+  data: RNFetchBlob.wrap(image)
+}
+]).then((resp) => {
+  return true;
 
-// }).catch((err) => {
-//   console.log('img upload failed'+ err)
-//   return false;
-// })
-// }
+}).catch((err) => {
+  console.log('img upload failed'+ err)
+  return false;
+})
+}
 
 
 export const getUserInfo = async (userId) => {
