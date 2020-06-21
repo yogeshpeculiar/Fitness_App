@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from "react-redux";
+import auth from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator();
 import * as actionCreators from '../store/actions';
@@ -27,19 +28,30 @@ class App extends React.Component {
   //connect this component to redux
   state = {
     loading: true,
-    videoTestMode: false // set this to true to enter video testing mode
+    videoTestMode: false, // set this to true to enter video testing mode,
+    user:null
   }
 
   componentDidMount() {
     // this.props.resetAuth();
     const {authToken, setAuthenticated,} = this.props;
+    this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
+
     if (!!authToken) {
       updateAxiosToken(authToken);
       setAuthenticated(true);
     }
-    this.setState({
-      loading: false,
-    })
+    // this.setState({
+    //   loading: false,
+    // })
+  }
+  componentWillUnmount() {
+    // this.subscriber.remove ??
+  }
+
+  onAuthStateChanged=(user)=> {
+    console.log("Auth changed", user);
+    // this.setState({user,loading:false});
   }
 
   render() {
@@ -60,7 +72,9 @@ class App extends React.Component {
     if (loading) {
       return (
         <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator>
+          <Stack.Navigator  screenOptions={{
+            headerShown: false
+          }}>
             <Stack.Screen name={RouteNames.Splash} component={Splash}/>
           </Stack.Navigator>
         </NavigationContainer>
