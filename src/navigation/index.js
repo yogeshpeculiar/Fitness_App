@@ -26,16 +26,12 @@ import {navigationRef} from './RootNavigation';
 
 
 class App extends React.Component {
-  //connect this component to redux
   state = {
     loading: true,
     videoTestMode: false, // set this to true to enter video testing mode,
   }
 
   componentDidMount() {
-    // auth()
-    //   .signOut()
-    // this.props.resetAuth(); this.props.resetUser();
     const {setAuthenticated} = this.props;
     setAuthenticated(false); // TODO: Remove this line and fix auth blacklisting
     this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
@@ -46,7 +42,7 @@ class App extends React.Component {
   }
 
   onAuthStateChanged = async (user) => {
-    const {authToken, setAuthenticated, attemptGoogleAuth} = this.props;
+    const {authToken, setAuthenticated, syncGoogleAuth} = this.props;
     console.log("Auth state changed", user);
     if (user) {
       if (!!authToken) {
@@ -56,7 +52,7 @@ class App extends React.Component {
       } else {
         console.log("No auth token, getting one");
         let idToken = await auth().currentUser.getIdToken(true);
-        let authSuccess = await attemptGoogleAuth(idToken);
+        let authSuccess = await syncGoogleAuth(idToken);
         if (authSuccess)
           setAuthenticated(true);
         else {
@@ -64,7 +60,8 @@ class App extends React.Component {
         }
       }
     }
-    this.setState({loading: false});
+    if (this.state.loading)
+      this.setState({loading: false});
   }
 
   render() {
@@ -134,7 +131,7 @@ const mapDispatchToProps = (dispatch) => ({
   resetAuth: () => dispatch(actionCreators.resetAuth()),
   resetUser: () => dispatch(actionCreators.resetUser()),
   setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
-  attemptGoogleAuth: (idToken) => dispatch(actionCreators.attemptGoogleAuth(idToken))
+  syncGoogleAuth: (idToken) => dispatch(actionCreators.syncGoogleAuth(idToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,7 @@
 export {
   setAuthenticated,
   resetAuth,
-  attemptGoogleAuth
+  syncGoogleAuth
 } from "./auth.actions";
 
 export {

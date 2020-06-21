@@ -9,7 +9,7 @@ export const setAuthenticated = (authenticated) => ({
   },
 });
 
-export const attemptGoogleAuth = (idToken) => {
+export const syncGoogleAuth = (idToken) => {
   return async (dispatch) => {
     try {
       let result = await API.googleAuth(idToken);

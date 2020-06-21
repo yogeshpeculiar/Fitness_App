@@ -1,9 +1,11 @@
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import auth from '@react-native-firebase/auth';
+
 import {webClientId} from "../constants/appConstants";
 
 GoogleSignin.configure({webClientId});
 
-async function onGoogleButtonPress() {
+export async function attemptGoogleAuth() {
   try {
     await GoogleSignin.hasPlayServices();
     const {idToken} = await GoogleSignin.signIn();
