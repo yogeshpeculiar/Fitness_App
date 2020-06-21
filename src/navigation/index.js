@@ -24,45 +24,58 @@ import VideoCall from "../screens/App/VideoCall";
 import VideoTester from "../screens/App/VideoTester";
 import {navigationRef} from './RootNavigation';
 
+
 class App extends React.Component {
   //connect this component to redux
   state = {
     loading: true,
     videoTestMode: false, // set this to true to enter video testing mode,
-    user:null
   }
 
   componentDidMount() {
-    // this.props.resetAuth();
-    const {authToken, setAuthenticated,} = this.props;
+    // auth()
+    //   .signOut()
+    // this.props.resetAuth(); this.props.resetUser();
+    const {setAuthenticated} = this.props;
+    setAuthenticated(false); // TODO: Remove this line and fix auth blacklisting
     this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
-
-    if (!!authToken) {
-      updateAxiosToken(authToken);
-      setAuthenticated(true);
-    }
-    // this.setState({
-    //   loading: false,
-    // })
   }
+
   componentWillUnmount() {
     // this.subscriber.remove ??
   }
 
-  onAuthStateChanged=(user)=> {
-    console.log("Auth changed", user);
-    // this.setState({user,loading:false});
+  onAuthStateChanged = async (user) => {
+    const {authToken, setAuthenticated, attemptGoogleAuth} = this.props;
+    console.log("Auth state changed", user);
+    if (user) {
+      if (!!authToken) {
+        console.log('authToken present, going home');
+        updateAxiosToken(authToken);
+        setAuthenticated(true);
+      } else {
+        console.log("No auth token, getting one");
+        let idToken = await auth().currentUser.getIdToken(true);
+        let authSuccess = await attemptGoogleAuth(idToken);
+        if (authSuccess)
+          setAuthenticated(true);
+        else {
+          //TODO:Handle this case
+        }
+      }
+    }
+    this.setState({loading: false});
   }
 
   render() {
     if (this.state.videoTestMode)
       return (
         <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator  screenOptions={{
+          <Stack.Navigator screenOptions={{
             headerShown: false
           }}>
             <Stack.Screen name={RouteNames.VideoTester} component={VideoTester}/>
-            <Stack.Screen name={RouteNames.VideoCall} component={VideoCall} />
+            <Stack.Screen name={RouteNames.VideoCall} component={VideoCall}/>
           </Stack.Navigator>
         </NavigationContainer>
       )
@@ -72,7 +85,7 @@ class App extends React.Component {
     if (loading) {
       return (
         <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator  screenOptions={{
+          <Stack.Navigator screenOptions={{
             headerShown: false
           }}>
             <Stack.Screen name={RouteNames.Splash} component={Splash}/>
@@ -119,7 +132,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   resetAuth: () => dispatch(actionCreators.resetAuth()),
+  resetUser: () => dispatch(actionCreators.resetUser()),
   setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
+  attemptGoogleAuth: (idToken) => dispatch(actionCreators.attemptGoogleAuth(idToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

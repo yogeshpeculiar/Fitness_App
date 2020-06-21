@@ -1,6 +1,7 @@
 export {
   setAuthenticated,
-  resetAuth
+  resetAuth,
+  attemptGoogleAuth
 } from "./auth.actions";
 
 export {

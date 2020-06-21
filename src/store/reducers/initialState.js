@@ -6,7 +6,8 @@ export const authState = {
 
 export const userState = {
   authToken: '',
-  userType: userTypes.USER
+  userType: userTypes.USER,
+  userId:''
 };
 
 

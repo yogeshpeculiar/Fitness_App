@@ -2,11 +2,15 @@ export {
   updateAxiosToken,
   registerTrainer,
   registerUser,
-  listTrainers,
   login,
+  googleAuth
+} from './auth';
+
+export {
+  listTrainers,
   addTrainerDetails,
   getUserInfo
-} from './methods';
+} from './user';
 
 export {
   uploadImage
