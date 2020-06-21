@@ -6,7 +6,11 @@ export {
   firebaseAuth
 } from './auth';
 
-
+export {
+  attemptGoogleAuth,
+  registerWithEmail,
+  signInWithEmail
+} from './firebaseMethods';
 
 export {
   listTrainers,
