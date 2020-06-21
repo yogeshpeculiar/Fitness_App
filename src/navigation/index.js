@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from "react-redux";
+import auth from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator();
 import * as actionCreators from '../store/actions';
@@ -22,35 +23,58 @@ import {updateAxiosToken} from "../API";
 import VideoCall from "../screens/App/VideoCall";
 import VideoTester from "../screens/App/VideoTester";
 import {navigationRef} from './RootNavigation';
+import {videoTestMode} from "../constants/appConstants";
 
 class App extends React.Component {
-  //connect this component to redux
   state = {
     loading: true,
-    videoTestMode: false // set this to true to enter video testing mode
+    videoTestMode // set this to true to enter video testing mode,
   }
 
   componentDidMount() {
-    // this.props.resetAuth();
-    const {authToken, setAuthenticated,} = this.props;
-    if (!!authToken) {
-      updateAxiosToken(authToken);
-      setAuthenticated(true);
+    const {setAuthenticated} = this.props;
+    setAuthenticated(false); // TODO: Remove this line and fix auth blacklisting
+    this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
+  }
+
+  componentWillUnmount() {
+    // this.subscriber.remove ??
+  }
+
+  onAuthStateChanged = async (user) => {
+    const {authToken, setAuthenticated, syncFirebaseAuth} = this.props;
+    console.log("Auth state changed", user);
+    if (user) {
+      if (!!authToken) {
+        console.log('authToken present, going home');
+        updateAxiosToken(authToken);
+        setAuthenticated(true);
+      } else {
+        console.log("No auth token, getting one");
+        let idToken = await auth().currentUser.getIdToken(true);
+        let authSuccess = await syncFirebaseAuth(idToken);
+        if (authSuccess)
+          setAuthenticated(true);
+        else {
+          //TODO:Handle this case
+        }
+      }
+    } else {
+      setAuthenticated(false);
     }
-    this.setState({
-      loading: false,
-    })
+    if (this.state.loading)
+      this.setState({loading: false});
   }
 
   render() {
     if (this.state.videoTestMode)
       return (
         <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator  screenOptions={{
+          <Stack.Navigator screenOptions={{
             headerShown: false
           }}>
             <Stack.Screen name={RouteNames.VideoTester} component={VideoTester}/>
-            <Stack.Screen name={RouteNames.VideoCall} component={VideoCall} />
+            <Stack.Screen name={RouteNames.VideoCall} component={VideoCall}/>
           </Stack.Navigator>
         </NavigationContainer>
       )
@@ -60,7 +84,9 @@ class App extends React.Component {
     if (loading) {
       return (
         <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{
+            headerShown: false
+          }}>
             <Stack.Screen name={RouteNames.Splash} component={Splash}/>
           </Stack.Navigator>
         </NavigationContainer>
@@ -105,7 +131,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   resetAuth: () => dispatch(actionCreators.resetAuth()),
+  resetUser: () => dispatch(actionCreators.resetUser()),
   setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
+  syncFirebaseAuth: (idToken) => dispatch(actionCreators.syncFirebaseAuth(idToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

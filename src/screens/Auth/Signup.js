@@ -7,7 +7,7 @@ import { registerUser, registerTrainer, addTrainerDetails } from '../../API';
 import { CheckBox } from 'react-native-elements'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RadioForm from 'react-native-simple-radio-button';
-import uploadImage from '../../API/methods';
+import uploadImage from '../../API/auth';
 import * as actionCreators from "../../store/actions";
 import {connect} from "react-redux";
 import RouteNames from "../../navigation/RouteNames";
