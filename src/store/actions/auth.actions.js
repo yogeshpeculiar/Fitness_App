@@ -9,10 +9,10 @@ export const setAuthenticated = (authenticated) => ({
   },
 });
 
-export const syncGoogleAuth = (idToken) => {
+export const syncFirebaseAuth = (idToken) => {
   return async (dispatch) => {
     try {
-      let result = await API.googleAuth(idToken);
+      let result = await API.firebaseAuth(idToken);
       if (result) {
         console.log(result);
         const {userId, authToken, userType} = result;

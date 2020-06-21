@@ -1,5 +1,5 @@
-// export const rootURL = 'https://te-gym-api.herokuapp.com';
-export const rootURL = 'http://192.168.31.125:3001';
+export const rootURL = 'https://te-gym-api.herokuapp.com';
+// export const rootURL = 'http://192.168.31.125:3001';
 export const userTypes = {
   USER: 'USER',
   TRAINER: 'TRAINER'
@@ -19,5 +19,5 @@ export const videoFeedConfig = {
 }
 export const webClientId = '284208119571-nt9fitb9l2o4qulefvju8gqeo7aaug01.apps.googleusercontent.com';
 
-
+export const videoTestMode = false;
 export const callTimeout = 30000; //30 secs

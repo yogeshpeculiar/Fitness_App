@@ -1,7 +1,7 @@
 export {
   setAuthenticated,
   resetAuth,
-  syncGoogleAuth
+  syncFirebaseAuth
 } from "./auth.actions";
 
 export {

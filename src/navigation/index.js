@@ -23,12 +23,12 @@ import {updateAxiosToken} from "../API";
 import VideoCall from "../screens/App/VideoCall";
 import VideoTester from "../screens/App/VideoTester";
 import {navigationRef} from './RootNavigation';
-
+import {videoTestMode} from "../constants/appConstants";
 
 class App extends React.Component {
   state = {
     loading: true,
-    videoTestMode: false, // set this to true to enter video testing mode,
+    videoTestMode // set this to true to enter video testing mode,
   }
 
   componentDidMount() {
@@ -42,7 +42,7 @@ class App extends React.Component {
   }
 
   onAuthStateChanged = async (user) => {
-    const {authToken, setAuthenticated, syncGoogleAuth} = this.props;
+    const {authToken, setAuthenticated, syncFirebaseAuth} = this.props;
     console.log("Auth state changed", user);
     if (user) {
       if (!!authToken) {
@@ -52,13 +52,15 @@ class App extends React.Component {
       } else {
         console.log("No auth token, getting one");
         let idToken = await auth().currentUser.getIdToken(true);
-        let authSuccess = await syncGoogleAuth(idToken);
+        let authSuccess = await syncFirebaseAuth(idToken);
         if (authSuccess)
           setAuthenticated(true);
         else {
           //TODO:Handle this case
         }
       }
+    } else {
+      setAuthenticated(false);
     }
     if (this.state.loading)
       this.setState({loading: false});
@@ -131,7 +133,7 @@ const mapDispatchToProps = (dispatch) => ({
   resetAuth: () => dispatch(actionCreators.resetAuth()),
   resetUser: () => dispatch(actionCreators.resetUser()),
   setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
-  syncGoogleAuth: (idToken) => dispatch(actionCreators.syncGoogleAuth(idToken))
+  syncFirebaseAuth: (idToken) => dispatch(actionCreators.syncFirebaseAuth(idToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

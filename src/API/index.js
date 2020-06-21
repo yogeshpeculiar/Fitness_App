@@ -3,8 +3,10 @@ export {
   registerTrainer,
   registerUser,
   login,
-  googleAuth
+  firebaseAuth
 } from './auth';
+
+
 
 export {
   listTrainers,
