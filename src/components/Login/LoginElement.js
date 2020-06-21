@@ -2,41 +2,26 @@ import React from 'react';
 import {View,TouchableOpacity,Text,StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const performAction = (navigation,action) => {
-    if(action === 'registeredMail'){
-        console.log('function called')
-        navigation.navigate('signInWithRegisteredEmail')
-    }
-        
-    else if(action === 'google')
-        {
-            //api integration for google Login
-        }
-    else {
-        //api integration for facebook login
-         }
-}
 const LoginElement=(props) =>{
 
 return(
     <View style={styles.container}>
-                <View style={styles.icon}>
-                    <FontAwesome
-                        name={props.iconName}
-                        color="black"
-                        size={28}
-                        ></FontAwesome>
-                </View>
-                <View style={{flex:0.5}}>
-                    <Text style={styles.seperator}>|</Text>
-                </View>
-                <View style={{flex:3}}>
-                    <TouchableOpacity  onPress={()=>performAction(props.navigation,props.action)}>
-                    <Text >{props.title}</Text>
-                    </TouchableOpacity>
-                </View>
-               
+        <View style={styles.icon}>
+            <FontAwesome
+                name={props.iconName}
+                color="black"
+                size={28}
+                />
         </View>
+        <View style={{flex:0.5}}>
+            <Text style={styles.seperator}>|</Text>
+        </View>
+        <View style={{flex:3}}>
+            <TouchableOpacity  onPress={props.onPress}>
+            <Text >{props.title}</Text>
+            </TouchableOpacity>
+        </View>
+    </View>
 );
 }
 const styles = StyleSheet.create({
