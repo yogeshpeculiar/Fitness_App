@@ -8,6 +8,7 @@ import RNVoipCall from 'react-native-voip-call';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Remote Message handled in the background!', remoteMessage);
+  console.warn("got")
   if(Platform.OS === 'android'){
     let data;
     if(remoteMessage.data){

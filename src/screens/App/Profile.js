@@ -13,6 +13,7 @@ import * as actionCreators from '../../store/actions';
 import Splash from "../Auth/Splash";
 import requestCameraAndAudioPermission from "../../utils/permission";
 import {CHANNELS} from "../../constants/appConstants";
+import {initialiseVideoCall} from "../../utils/utils";
 
 const STATUS_BAR_HEIGHT = 0;
 const HEADER_HEIGHT = 64;
@@ -20,25 +21,11 @@ const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
 const defaultDP = 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038';
 
 class Profile extends Component {
-  state = {
-    userOnline: false
-  }
 
   componentDidMount() {
     const {route, setUser} = this.props;
     const {userId} = route.params;
     setUser(userId);
-    global.socket.on(CHANNELS.CHECK_USER_ONLINE, data => {
-      this.setState({userOnline: data});
-    })
-    global.socket.emit(CHANNELS.CHECK_USER_ONLINE, {
-      userId
-    })
-  }
-
-  componentWillUnmount() {
-    global.socket.on(CHANNELS.CHECK_USER_ONLINE, () => {
-    });
   }
 
   enrollClicked = () => {
@@ -50,17 +37,13 @@ class Profile extends Component {
   }
 
   callClicked = async () => {
-    const {navigation, route} = this.props;
+    const {route} = this.props;
     const {userId} = route.params;
     const permissionGranted = await requestCameraAndAudioPermission();
 
     if (permissionGranted) {
-
-      global.socket.emit(CHANNELS.INITIATE_VIDEO_CALL, {
-        userId
-      })
-
-    } else console.log("Cant initiate video call without permission")
+      await initialiseVideoCall(userId);
+    } else console.log("Cant initiate video call without permission");
   }
 
   renderContent = () => {
@@ -89,7 +72,6 @@ class Profile extends Component {
           profileType={userType}
           enrollCallback={this.enrollClicked}
           initiateVideoCallCallback={this.callClicked}
-          userOnline={this.state.userOnline}
         />
       </View>
     )

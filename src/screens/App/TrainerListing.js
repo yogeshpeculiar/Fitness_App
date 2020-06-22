@@ -9,8 +9,8 @@ import TrainerThumb from '../../components/Trainer/TrainerThumb';
 import colors from "../../constants/colors";
 import RouteNames from "../../navigation/RouteNames";
 import * as actionCreators from '../../store/actions';
-import {rootURL} from "../../constants/appConstants";
-import {initialiseSocket} from "../../utils/utils";
+// import {rootURL} from "../../constants/appConstants";
+// import {initialiseSocket} from "../../utils/utils";
 
 const defaultDP = 'https://media.istockphoto.com/photos/middle-aged-gym-coach-picture-id475467038';
 
@@ -18,7 +18,7 @@ class TrainerListing extends Component {
   async componentDidMount() {
     const {updateTrainers, authToken} = this.props;
     updateTrainers();
-    global.socket = await initialiseSocket(authToken);
+    // global.socket = await initialiseSocket(authToken);
     // console.log(global.socket)
   }
 

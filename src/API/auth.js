@@ -61,9 +61,25 @@ export const login = async (email, password) => {
   }
 }
 
-export const firebaseAuth = async (idToken, fcmToken) => {
+export const firebaseUserAuth = async (idToken, fcmToken) => {
   try {
     let response = await axios.post('/register/user/googleAuth', {
+      idToken,
+      fcmToken
+    });
+    if (validateResponseCode(response.status)) {
+      return response.data;
+    } else
+      return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export const firebaseTrainerAuth = async (idToken, fcmToken) => {
+  try {
+    let response = await axios.post('/register/trainer/googleAuth', {
       idToken,
       fcmToken
     });
