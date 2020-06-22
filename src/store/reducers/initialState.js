@@ -6,8 +6,9 @@ export const authState = {
 
 export const userState = {
   authToken: '',
-  userType: userTypes.TRAINER,
-  userId:''
+  userType: userTypes.USER,
+  userId:'',
+  initialLogin:true
 };
 
 export const appState = {

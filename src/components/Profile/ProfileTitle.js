@@ -34,13 +34,16 @@ const ProfileTitle = (props) => {
               onPress={props.initiateVideoCallCallback}
               textContent={strings.CALL}/>
           </View>
-          <View style={styles.buttonContainer}>
-            <GenericButton
-              onPress={props.enrollCallback}
-              textContent={strings.ENROLL}
-            />
-          </View>
-
+          {
+            props.enrollCallback && (
+              <View style={styles.buttonContainer}>
+                <GenericButton
+                  onPress={props.enrollCallback}
+                  textContent={strings.ENROLL}
+                />
+              </View>
+            )
+          }
         </View>
       </View>
     </View>

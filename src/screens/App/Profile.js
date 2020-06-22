@@ -72,6 +72,7 @@ class Profile extends Component {
           profileType={userType}
           enrollCallback={this.enrollClicked}
           initiateVideoCallCallback={this.callClicked}
+          userType={userType}
         />
       </View>
     )

@@ -7,7 +7,8 @@ export {
 export {
   setAuthToken,
   resetUser,
-  setUserType
+  setUserType,
+  setInitialLoginOff
 } from "./user.actions";
 
 export {

@@ -55,32 +55,33 @@ class TrainerSignupDetails extends Component {
 
   async submit() {
 
-    if (this.state.height != 0) {
-      theight = JSON.stringify(this.state.height.text);
-      theight = theight.slice(1, -1);
-    }
-    if (this.state.weight != 0) {
-      tweight = JSON.stringify(this.state.weight.text);
-      tweight = tweight.slice(1, -1);
-    }
-    if (this.state.experience != 0) {
-      texp = JSON.stringify(this.state.experience.text);
-      texp = texp.slice(1, -1);
-    }
+    // if (this.state.height != 0) {
+    //   theight = JSON.stringify(this.state.height.text);
+    //   theight = theight.slice(1, -1);
+    // }
+    // if (this.state.weight != 0) {
+    //   tweight = JSON.stringify(this.state.weight.text);
+    //   tweight = tweight.slice(1, -1);
+    // }
+    // if (this.state.experience != 0) {
+    //   texp = JSON.stringify(this.state.experience.text);
+    //   texp = texp.slice(1, -1);
+    // }
     if (this.state.name != '') {
       tname = JSON.stringify(this.state.name.text);
       tname = tname.slice(1, -1);
     }
-    var result = await addTrainerDetails(theight, tweight, texp, tname);
+    var result = await addTrainerDetails(tname);
     if (result) {
       console.log('addTrainerdetails----------' + result)
-      this.props.setAuthenticated(true);
+      this.props.nav
+      this.props.setInitialLoginOff();
     } else
       console.log('addTrainerdetails----------' + result)
 
-    const state = store.getState();
-    console.log('image modified url----------'+JSON.stringify(this.state.image))
-    this.submitPhoto(this.state.image, state.jwt);
+    // const state = store.getState();
+    // console.log('image modified url----------'+JSON.stringify(this.state.image))
+    // this.submitPhoto(this.state.image, state.jwt);
   }
 
 
@@ -107,26 +108,26 @@ class TrainerSignupDetails extends Component {
           }}></TextInput>
         </View>
 
-        <View style={styles.detailElement}>
-          <Text style={styles.label}>Height </Text>
-          <Text style={styles.note}>(in feet)</Text>
-          <TextInput style={styles.Input} maxLength={4} keyboardType='numeric' onChangeText={(text) => {
-            this.setState({height: {text}})
-          }}> </TextInput>
-        </View>
-        <View style={styles.detailElement}>
-          <Text style={styles.label}>weight </Text>
-          <Text style={styles.note}>(in Kgs)</Text>
-          <TextInput style={styles.Input} maxLength={4} keyboardType='numeric' onChangeText={(text) => {
-            this.setState({weight: {text}})
-          }}> </TextInput>
-        </View>
-        <View style={[styles.detailElement]}>
-          <Text style={styles.label}>Experience</Text>
-          <TextInput style={styles.Input} maxLength={4} keyboardType='numeric' onChangeText={(text) => {
-            this.setState({experience: {text}})
-          }}> </TextInput>
-        </View>
+        {/*<View style={styles.detailElement}>*/}
+        {/*  <Text style={styles.label}>Height </Text>*/}
+        {/*  <Text style={styles.note}>(in feet)</Text>*/}
+        {/*  <TextInput style={styles.Input} maxLength={4} keyboardType='numeric' onChangeText={(text) => {*/}
+        {/*    this.setState({height: {text}})*/}
+        {/*  }}> </TextInput>*/}
+        {/*</View>*/}
+        {/*<View style={styles.detailElement}>*/}
+        {/*  <Text style={styles.label}>weight </Text>*/}
+        {/*  <Text style={styles.note}>(in Kgs)</Text>*/}
+        {/*  <TextInput style={styles.Input} maxLength={4} keyboardType='numeric' onChangeText={(text) => {*/}
+        {/*    this.setState({weight: {text}})*/}
+        {/*  }}> </TextInput>*/}
+        {/*</View>*/}
+        {/*<View style={[styles.detailElement]}>*/}
+        {/*  <Text style={styles.label}>Experience</Text>*/}
+        {/*  <TextInput style={styles.Input} maxLength={4} keyboardType='numeric' onChangeText={(text) => {*/}
+        {/*    this.setState({experience: {text}})*/}
+        {/*  }}> </TextInput>*/}
+        {/*</View>*/}
         <TouchableOpacity onPress={() => this.submit()} style={styles.submit}>
           <Text style={styles.buttonLabel}>Submit</Text>
         </TouchableOpacity>
@@ -187,7 +188,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value))
+  setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
+  setInitialLoginOff: ()=>dispatch(actionCreators.setInitialLoginOff())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainerSignupDetails);

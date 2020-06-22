@@ -3,12 +3,15 @@ const RouteNames = {
   AppStack:'AppStack',
   AuthStack:'AuthStack',
   Splash:'Splash', // this one is just a screen
+  ChooseUserType:'ChooseUserType',
 
-  TrainerListing:'TrainerListing',
+  UserListing:'UserListing',
   Profile:'Profile',
   Packages:'Packages',
   VideoCall:'VideoCall',
-  VideoTester:'VideoTester'
+  VideoTester:'VideoTester',
+
+  Login:'Login'
 };
 
 export default RouteNames;
