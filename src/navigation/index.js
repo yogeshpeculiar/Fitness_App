@@ -20,11 +20,24 @@ import SignInWithRegisteredEmail from "../screens/Auth/SignInWithRegisteredEmail
 import EmailVerification from "../screens/Auth/EmailVerification";
 import TrainerSignupDetails from "../screens/Auth/TrainerSignupDetails";
 import TrainerHomeScreen from "../screens/Auth/TrainerHomeScreen";
-import {attemptGoogleAuth, registerWithEmail, signInWithEmail, updateAxiosToken} from "../API";
+import {updateAxiosToken} from "../API";
 import VideoCall from "../screens/App/VideoCall";
 import VideoTester from "../screens/App/VideoTester";
 import {navigationRef} from './RootNavigation';
 import {videoTestMode} from "../constants/appConstants";
+import RNCallKeep from "react-native-callkeep";
+import LaunchApplication from 'react-native-bring-foreground';
+import {callKeepConfig, displayIncomingCall} from "../utils/callKeep";
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Remote Message handled in the background!', remoteMessage);
+  LaunchApplication.open('com.thirdessential.fitnessfirst');
+  const {sessionId, agoraAppId} = remoteMessage.data;
+  displayIncomingCall(sessionId, agoraAppId);
+});
+
+RNCallKeep.setup(callKeepConfig).then(accepted => {
+});
 
 class App extends React.Component {
   state = {
@@ -37,11 +50,13 @@ class App extends React.Component {
     const {setAuthenticated} = this.props;
     setAuthenticated(false); // TODO: Remove this line and fix auth blacklisting
     this.authSubscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
-    this.syncing= false;
-  }
+    this.syncing = false;
 
-  componentWillUnmount() {
-    // this.authSubscriber.remove ??
+    messaging().onMessage(async remoteMessage => {
+      console.log("Remote message received", remoteMessage);
+      const {sessionId, agoraAppId} = remoteMessage.data;
+      displayIncomingCall(sessionId, agoraAppId);
+    })
   }
 
   onAuthStateChanged = async (user) => {
@@ -121,7 +136,7 @@ class App extends React.Component {
           headerStyle: {},
         }}
         >
-          
+
           <Stack.Screen name="login" component={Login} options={{title: ''}}/>
           <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}}/>
           <Stack.Screen name="Listings" component={Listings}/>
@@ -133,7 +148,7 @@ class App extends React.Component {
                         options={{title: 'Enter details'}}/>
           <Stack.Screen name="TrainerHomeScreen" component={TrainerHomeScreen} options={{title: ''}}/>
         </Stack.Navigator>
-    
+
       </NavigationContainer>
     );
   }

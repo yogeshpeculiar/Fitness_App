@@ -5890,6 +5890,16 @@ react-native-agora@^2.9.0-alpha.1:
   dependencies:
     tslib "^1.9.3"
 
+react-native-bring-foreground@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-bring-foreground/-/react-native-bring-foreground-0.0.3.tgz#8351f7726df2ebbae7ac914302790d33046b76be"
+  integrity sha512-8Vzu6zUJ90Tvh+vHkb5hJrHzDPb08Z5MK0RxdX4VHRu1JYy2k3fM5H5hy6pZttHO0mMyJFxe/YVl7XLH5EqYCA==
+
+react-native-callkeep@^3.0.14:
+  version "3.0.14"
+  resolved "https://registry.yarnpkg.com/react-native-callkeep/-/react-native-callkeep-3.0.14.tgz#0ce23392ba7e3448bb8cc18585f54af7d86d3371"
+  integrity sha512-GxnF4dpyyWaAdkVu8EIKiissmLMnWbjvIZgeu8i2syprdGZhAZ0umvW7jIee1lpbszP1NcplmadzIX0r5LPYTg==
+
 react-native-elements@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-2.0.2.tgz#2819d556cea481cad29fa79c6a8ccb47ef6f456e"
