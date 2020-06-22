@@ -6,6 +6,7 @@ export default class Login extends Component{
     constructor(props){
         super(props);
     } 
+<<<<<<< HEAD
     facebookLogin=()=>{
 
     }
@@ -13,6 +14,15 @@ export default class Login extends Component{
 
     }
     showTermsandConditions=()=>{
+=======
+    facebookLogin(){
+
+    }
+    gmailLogin(){
+
+    }
+    showTermsandConditions(){
+>>>>>>> 716948faaee5c4674808a6360e31ebddafccdf17
         
     }
 render(){

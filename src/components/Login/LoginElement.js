@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+<<<<<<< HEAD
 const LoginElement = (props) => {
 
     return (
@@ -21,6 +22,29 @@ const LoginElement = (props) => {
             </View>
         </TouchableOpacity>
     );
+=======
+const LoginElement=(props) =>{
+
+return(
+    <View style={styles.container}>
+        <View style={styles.icon}>
+            <FontAwesome
+                name={props.iconName}
+                color="black"
+                size={28}
+                />
+        </View>
+        <View style={{flex:0.5}}>
+            <Text style={styles.seperator}>|</Text>
+        </View>
+        <View style={{flex:3}}>
+            <TouchableOpacity  onPress={props.onPress}>
+            <Text >{props.title}</Text>
+            </TouchableOpacity>
+        </View>
+    </View>
+);
+>>>>>>> 716948faaee5c4674808a6360e31ebddafccdf17
 }
 const styles = StyleSheet.create({
     container: {
