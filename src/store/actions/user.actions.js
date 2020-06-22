@@ -15,6 +15,12 @@ export const setUserType = (userType=userTypes.USER) => ({
     userType
   }
 })
+export const setInitialLoginOff = () => ({
+  type:actionTypes.SET_INITIAL_LOGIN_OFF,
+  payload:{
+    initialLogin:false
+  }
+})
 
 export const setAuthTokenAction = (authToken) => ({
   type: actionTypes.SET_AUTH_TOKEN,

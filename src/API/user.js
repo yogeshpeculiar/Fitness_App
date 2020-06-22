@@ -14,12 +14,12 @@ export const listTrainers = async () => {
   }
 }
 
-export const addTrainerDetails = async (height, weight, experience, name) => {
+export const addTrainerDetails = async (name) => {
   try {
     let response = await axios.put('/user', {
-      height: height,
-      weight: weight,
-      experience: experience,
+      // height: height,
+      // weight: weight,
+      // experience: experience,
       name: name
     });
     if (validateResponseCode(response.status)) {

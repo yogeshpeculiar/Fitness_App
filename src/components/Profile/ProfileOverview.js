@@ -12,6 +12,7 @@ import ProfileTitle from './ProfileTitle';
 import ProfileHits from './ProfileHits';
 import ExpandingText from "../ExpandingText";
 import RoundedFas from "../RoundedFas";
+import {userTypes} from "../../constants/appConstants";
 
 const ProfileOverview = (props) => {
   const {hits} = props;
@@ -21,19 +22,23 @@ const ProfileOverview = (props) => {
         <ProfileTitle
           name={props.name}
           dpUrl={props.dpUrl}
-          enrollCallback={props.enrollCallback}
+          enrollCallback={ props.userType===userTypes.TRAINER?props.enrollCallback:null}
           initiateVideoCallCallback={props.initiateVideoCallCallback}
-          // userOnline={props.userOnline}
         />
       </View>
-      <View style={styles.profileHitsContainer}>
-        <ProfileHits
-          followers={hits.followers}
-          transformations={hits.transformations}
-          rating={hits.rating}
-          following={hits.following}
-        />
-      </View>
+      {
+        props.userType === userTypes.TRAINER && (
+          <View style={styles.profileHitsContainer}>
+            <ProfileHits
+              followers={hits.followers}
+              transformations={hits.transformations}
+              rating={hits.rating}
+              following={hits.following}
+            />
+          </View>
+        )
+      }
+
       <View style={styles.descriptionContainer}>
         <ExpandingText>{props.description}</ExpandingText>
       </View>
@@ -50,12 +55,12 @@ const ProfileOverview = (props) => {
         </View>
       </View>
 
-      <View style={styles.descriptionContainer}>
-        <GenericText type={GenericText.types.titleBold}>{strings.POSTS}</GenericText>
-        <View style={{height: 300}}>
-
-        </View>
-      </View>
+      {/*<View style={styles.descriptionContainer}>*/}
+      {/*  <GenericText type={GenericText.types.titleBold}>{strings.POSTS}</GenericText>*/}
+      {/*  <View style={{height: 300}}>*/}
+      {/**/}
+      {/*  </View>*/}
+      {/*</View>*/}
 
     </View>
   );
@@ -72,6 +77,7 @@ ProfileOverview.propTypes = {
   }),
   enrollCallback: PropTypes.func,
   initiateVideoCallCallback: PropTypes.func,
+  userType:PropTypes.string
   // userOnline:PropTypes.bool
 };
 

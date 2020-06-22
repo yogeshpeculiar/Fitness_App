@@ -28,12 +28,12 @@ class ChooseUserType extends Component {
       <View style={styles.container}>
         <TouchableOpacity activeOpacity={0.9} style={styles.darkButton} onPress={this.setUser}>
           <Text style={styles.lightText}>
-            USER
+            {userTypes.USER}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.lightButton} onPress={this.setTrainer}>
           <Text style={styles.darkText}>
-            TRAINER
+            {userTypes.TRAINER}
           </Text>
         </TouchableOpacity>
 

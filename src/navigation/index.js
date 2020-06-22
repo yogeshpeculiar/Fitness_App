@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 import * as actionCreators from '../store/actions';
 
 import RouteNames from "./RouteNames";
-import TrainerListing from "../screens/App/TrainerListing";
+import UserListing from "../screens/App/UserListing";
 import Profile from "../screens/App/Profile";
 import Packages from "../screens/App/Packages";
 import Splash from "../screens/Auth/Splash";
@@ -34,8 +34,8 @@ import ChooseUserType from "../screens/Auth/ChooseUserType";
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Remote Message handled in the background!', remoteMessage);
   LaunchApplication.open('com.thirdessential.fitnessfirst');
-  const {sessionId, agoraAppId} = remoteMessage.data;
-  displayIncomingCall(sessionId, agoraAppId);
+  const {sessionId, agoraAppId,userEmail}  = remoteMessage.data;
+  displayIncomingCall(sessionId, agoraAppId,userEmail);
 });
 
 RNCallKeep.setup(callKeepConfig).then(accepted => {
@@ -58,8 +58,8 @@ class App extends React.Component {
 
     messaging().onMessage(async remoteMessage => {
       console.log("Remote message received", remoteMessage);
-      const {sessionId, agoraAppId} = remoteMessage.data;
-      displayIncomingCall(sessionId, agoraAppId);
+      const {sessionId, agoraAppId,userEmail}  = remoteMessage.data;
+      displayIncomingCall(sessionId, agoraAppId,userEmail);
     })
   }
 
@@ -111,7 +111,7 @@ class App extends React.Component {
       )
 
     const {loading} = this.state;
-    const {authenticated} = this.props;
+    const {authenticated, initialLogin} = this.props;
 
     if (loading) {
       return (
@@ -124,23 +124,31 @@ class App extends React.Component {
         </NavigationContainer>
       )
     } else if (authenticated) {
-      return (
+      if (initialLogin) return (
         <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
-            <Stack.Screen name={RouteNames.TrainerListing} component={TrainerListing} options={{title: 'Overview'}}/>
-            <Stack.Screen name={RouteNames.Profile} component={Profile}/>
-            <Stack.Screen name={RouteNames.Packages} component={Packages}/>
-            <Stack.Screen name={RouteNames.VideoCall} component={VideoCall} options={noHeader}/>
+            <Stack.Screen name="TrainerSignupDetails" component={TrainerSignupDetails}
+                          options={{title: 'Enter details'}}/>
           </Stack.Navigator>
         </NavigationContainer>
-      );
+      )
+      else
+        return (
+          <NavigationContainer ref={navigationRef}>
+            <Stack.Navigator>
+              <Stack.Screen name={RouteNames.UserListing} component={UserListing} options={{title: 'Overview'}}/>
+              <Stack.Screen name={RouteNames.Profile} component={Profile}/>
+              <Stack.Screen name={RouteNames.Packages} component={Packages}/>
+              <Stack.Screen name={RouteNames.VideoCall} component={VideoCall} options={noHeader}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        );
     } else return (
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator screenOptions={{
           headerStyle: {},
         }}
         >
-
           <Stack.Screen name={RouteNames.ChooseUserType} component={ChooseUserType} options={noHeader}/>
           <Stack.Screen name={RouteNames.Login} component={Login} options={{title: ''}}/>
           <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}}/>
@@ -160,7 +168,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   authToken: state.user.authToken,
-  authenticated: state.auth.authenticated
+  authenticated: state.auth.authenticated,
+  initialLogin: state.user.initialLogin
 });
 
 const mapDispatchToProps = (dispatch) => ({

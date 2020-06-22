@@ -5,7 +5,7 @@ const RouteNames = {
   Splash:'Splash', // this one is just a screen
   ChooseUserType:'ChooseUserType',
 
-  TrainerListing:'TrainerListing',
+  UserListing:'UserListing',
   Profile:'Profile',
   Packages:'Packages',
   VideoCall:'VideoCall',
