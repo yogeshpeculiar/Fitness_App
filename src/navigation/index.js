@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from "react-redux";
 import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createStackNavigator();
 import * as actionCreators from '../store/actions';
@@ -31,10 +32,13 @@ class App extends React.Component {
     videoTestMode // set this to true to enter video testing mode,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {setAuthenticated} = this.props;
     setAuthenticated(false); // TODO: Remove this line and fix auth blacklisting
     this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
+    let token = await messaging()
+      .getToken();
+    console.log("FCM token", token)
   }
 
   componentWillUnmount() {
@@ -52,7 +56,7 @@ class App extends React.Component {
       } else {
         console.log("No auth token, getting one");
         let idToken = await auth().currentUser.getIdToken(true);
-        let authSuccess = await syncFirebaseAuth(idToken);
+        let authSuccess = await syncFirebaseAuth(idToken, fcmToken);
         if (authSuccess)
           setAuthenticated(true);
         else {
@@ -133,7 +137,7 @@ const mapDispatchToProps = (dispatch) => ({
   resetAuth: () => dispatch(actionCreators.resetAuth()),
   resetUser: () => dispatch(actionCreators.resetUser()),
   setAuthenticated: (value) => dispatch(actionCreators.setAuthenticated(value)),
-  syncFirebaseAuth: (idToken) => dispatch(actionCreators.syncFirebaseAuth(idToken))
+  syncFirebaseAuth: (idToken, fcmToken) => dispatch(actionCreators.syncFirebaseAuth(idToken, fcmToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

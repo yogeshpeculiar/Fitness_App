@@ -9,10 +9,10 @@ export const setAuthenticated = (authenticated) => ({
   },
 });
 
-export const syncFirebaseAuth = (idToken) => {
+export const syncFirebaseAuth = (idToken, fcmToken) => {
   return async (dispatch) => {
     try {
-      let result = await API.firebaseAuth(idToken);
+      let result = await API.firebaseAuth(idToken, fcmToken);
       if (result) {
         console.log(result);
         const {userId, authToken, userType} = result;

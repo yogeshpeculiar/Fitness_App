@@ -61,10 +61,11 @@ export const login = async (email, password) => {
   }
 }
 
-export const firebaseAuth = async (idToken) => {
+export const firebaseAuth = async (idToken, fcmToken) => {
   try {
     let response = await axios.post('/register/user/googleAuth', {
-      idToken
+      idToken,
+      fcmToken
     });
     if (validateResponseCode(response.status)) {
       return response.data;

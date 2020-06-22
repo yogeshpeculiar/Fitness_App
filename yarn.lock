@@ -1189,6 +1189,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-8.0.6.tgz#31c48bb5c281c69577313b9b1303c56bbf971540"
   integrity sha512-VjHQU0M6zMUL84+a0dcPQqW4RACSZYXMKvVv/TbbYy7L4mazWIsAO07J+EJkb5gL4LpQVwzfGYht6HQxZXLZkg==
 
+"@react-native-firebase/messaging@^7.1.6":
+  version "7.1.6"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-7.1.6.tgz#f02ce64d9c8ddcf2163dfc179c44a1d337787d86"
+  integrity sha512-XHe65Wk1QbmFhSYU3UxshsSAg79c+dox74flpxff+bZwpCH95TLrmublo3R3eIqSqu3s82fU3dRvAjd6rYjHbw==
+
 "@react-navigation/core@^5.10.0":
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.10.0.tgz#aee9e22a5f0f458ebeadc155f347b13eb5ff5212"
@@ -6053,6 +6058,11 @@ react-native-vector-icons@^6.6.0:
     lodash "^4.0.0"
     prop-types "^15.6.2"
     yargs "^13.2.2"
+
+react-native-voip-call@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-voip-call/-/react-native-voip-call-1.1.0.tgz#6ad9bc19e595f101ddca4e55fb30992be5098b1f"
+  integrity sha512-rvn5h+Os6jTc4qDEBtwzmAw76++nNrr6ZktpI4X1DPbHOrb5IR5tlNnNbpKUv3Xe0b5ML4zBtOCtQ/k3G1e5DA==
 
 react-native-windows@^0.62.0-preview.1:
   version "0.62.0-preview.17"
