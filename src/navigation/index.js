@@ -91,7 +91,7 @@ class App extends React.Component {
           </Stack.Navigator>
         </NavigationContainer>
       )
-    } else if (!authenticated) {
+    } else if (authenticated) {
       return (
         <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
