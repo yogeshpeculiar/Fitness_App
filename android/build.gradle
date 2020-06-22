@@ -6,6 +6,8 @@ buildscript {
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
+         supportLibVersion = "27.1.1"
+        googlePlayServicesAuthVersion = "17.0.0"
     }
     repositories {
         google()
@@ -37,17 +39,17 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
-
-subprojects {
-    afterEvaluate {project ->
-        if (project.hasProperty("android")) {
-            android {
-                compileSdkVersion 28
-                defaultConfig {
-                    targetSdkVersion 28
-                }
-            }
-        }
-    }
-}
-
+//
+// subprojects {
+//     afterEvaluate {project ->
+//         if (project.hasProperty("android")) {
+//             android {
+//                 compileSdkVersion 28
+//                 defaultConfig {
+//                     targetSdkVersion 28
+//                 }
+//             }
+//         }
+//     }
+// }
+//
