@@ -2,11 +2,21 @@ export {
   updateAxiosToken,
   registerTrainer,
   registerUser,
-  listTrainers,
   login,
+  firebaseAuth
+} from './auth';
+
+export {
+  attemptGoogleAuth,
+  registerWithEmail,
+  signInWithEmail
+} from './firebaseMethods';
+
+export {
+  listTrainers,
   addTrainerDetails,
   getUserInfo
-} from './methods';
+} from './user';
 
 export {
   uploadImage

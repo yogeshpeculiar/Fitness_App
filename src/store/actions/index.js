@@ -1,6 +1,7 @@
 export {
   setAuthenticated,
-  resetAuth
+  resetAuth,
+  syncFirebaseAuth
 } from "./auth.actions";
 
 export {

@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { registerUser, registerTrainer, addTrainerDetails } from '../../API';
 import { CheckBox } from 'react-native-elements'
 import RadioForm from 'react-native-simple-radio-button';
-import uploadImage from '../../API/methods';
+import uploadImage from '../../API/auth';
 import * as actionCreators from "../../store/actions";
 import { connect } from "react-redux";
 import RouteNames from "../../navigation/RouteNames";

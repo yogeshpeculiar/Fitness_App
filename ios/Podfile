@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'Gym' do
-  # Pods for Gym
+target 'FitnessFirst' do
+  # Pods for FitnessFirst
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'Gym' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'GymTests' do
+  target 'FitnessFirstTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'Gym' do
   end
 end
 
-target 'Gym-tvOS' do
-  # Pods for Gym-tvOS
+target 'FitnessFirst-tvOS' do
+  # Pods for FitnessFirst-tvOS
 
-  target 'Gym-tvOSTests' do
+  target 'FitnessFirst-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
