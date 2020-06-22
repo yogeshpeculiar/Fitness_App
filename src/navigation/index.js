@@ -93,6 +93,7 @@ class App extends React.Component {
 
     const {loading} = this.state;
     const {authenticated} = this.props;
+
     if (loading) {
       return (
         <NavigationContainer ref={navigationRef}>
@@ -103,7 +104,7 @@ class App extends React.Component {
           </Stack.Navigator>
         </NavigationContainer>
       )
-    } else if (!authenticated) {
+    } else if (authenticated) {
       return (
         <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>

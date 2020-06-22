@@ -33,8 +33,8 @@ render(){
                         <Text>To proceed further, please login</Text>
                 </View>
                 <View style={{flex:2,justifyContent:'space-evenly',alignItems:'center'}}>
-                      <LoginElement iconName="facebook" title="Log in with Facebook" onPress={this.facebookLogin()}/>
-                      <LoginElement iconName="google" title="Log in with Google" onPress={this.gmailLogin()} />       
+                      <LoginElement iconName="facebook" title="Log in with Facebook" onPress={this.facebookLogin}/>
+                      <LoginElement iconName="google" title="Log in with Google" onPress={this.gmailLogin} />
                       <LoginElement iconName="envelope-square" title="Log in with registered email" onPress={() => this.registeredEmailLogin()} />
                 </View>
 
