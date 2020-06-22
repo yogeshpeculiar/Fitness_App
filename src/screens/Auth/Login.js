@@ -6,6 +6,15 @@ export default class Login extends Component{
     constructor(props){
         super(props);
     } 
+    facebookLogin=()=>{
+
+    }
+    gmailLogin=()=>{
+
+    }
+    showTermsandConditions=()=>{
+        
+    }
 render(){
 
     return(
@@ -20,15 +29,15 @@ render(){
                         <Text>To proceed further, please login</Text>
                 </View>
                 <View style={{flex:2,justifyContent:'space-evenly',alignItems:'center'}}>
-                      <LoginElement iconName="facebook" title="Log in with Facebook" navigation={this.props.navigation} action="facebook"/>
-                      <LoginElement iconName="google" title="Log in with Google" navigation={this.props.navigation} action="google"/>       
-                      <LoginElement iconName="envelope-square" title="Log in with registered email" navigation={this.props.navigation} action="registeredMail"/>
+                      <LoginElement iconName="facebook" title="Log in with Facebook" onPress={this.facebookLogin()}/>
+                      <LoginElement iconName="google" title="Log in with Google" onPress={this.gmailLogin()} />       
+                      <LoginElement iconName="envelope-square" title="Log in with registered email" onPress={() => this.props.navigation.navigate('signInWithRegisteredEmail')}/>
                 </View>
 
-                <LoginFooter content="By proceeding further, you are agreeing to our " clickableContent="terms & conditions " navigation={this.props.navigation} action="displayTerms" />
+                <LoginFooter content="By proceeding further, you are agreeing to our " clickableContent="terms & conditions " onPress={()=> this.showTermsandConditions()} />
                 
                 <View style={{flex:1,justifyContent:'flex-start',flexDirection:'row',alignItems:'flex-start'}}>
-                <LoginFooter content="Dont't have an account? " clickableContent=" Sign up" navigation={this.props.navigation} action="signup" />
+                    <LoginFooter content="Dont't have an account? " clickableContent=" Sign up" onPress={()=>this.props.navigation.navigate('Signup')} />
                 </View>
            </View>
            
