@@ -15,6 +15,7 @@ import LoginFooter from '../../components/Login/LoginFooter';
 import ActionButton from '../../components/Signup/ActionButton';
 import EmailValidation from '../../Validation/Email';
 import PasswordValidation from '../../Validation/Password';
+import { registerWithEmail } from '../../API/firebaseMethods';
 
 class Signup extends Component {
     constructor(props) {
@@ -60,14 +61,15 @@ class Signup extends Component {
 
             console.log(this.state.userRole)
             if (this.state.userRole === 'user') {
-                var result = await registerUser(this.state.email.text, this.state.password.text);
+                // var result = await registerUser(this.state.email.text, this.state.password.text);
+                var result = await registerWithEmail(this.state.email.text, this.state.password.text);
                 console.log('-------------' + result);
-                if (result) {
-                    this.props.setAuthToken(result.jwt);
-                    this.props.setAuthenticated(true);
-                }
-                else
-                    this.showMessage('signup failed')
+                // if (result) {
+                //     this.props.setAuthToken(result.jwt);
+                //     this.props.setAuthenticated(true);
+                // }
+                // else
+                //     this.showMessage('signup failed')
             }
             else {
                 var result = await registerTrainer(this.state.email.text, this.state.password.text);

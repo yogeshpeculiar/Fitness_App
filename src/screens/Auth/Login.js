@@ -2,27 +2,21 @@ import React, { useState,Component } from 'react';
 import {Text,View} from 'react-native';
 import LoginElement from '../../components/Login/LoginElement';
 import LoginFooter from '../../components/Login/LoginFooter';
+import { attemptGoogleAuth } from '../../API/firebaseMethods';
 export default class Login extends Component{
     constructor(props){
         super(props);
     } 
-<<<<<<< HEAD
     facebookLogin=()=>{
 
     }
     gmailLogin=()=>{
-
+        attemptGoogleAuth();
+    }
+    registeredEmailLogin = () =>{
+        this.props.navigation.navigate('signInWithRegisteredEmail')
     }
     showTermsandConditions=()=>{
-=======
-    facebookLogin(){
-
-    }
-    gmailLogin(){
-
-    }
-    showTermsandConditions(){
->>>>>>> 716948faaee5c4674808a6360e31ebddafccdf17
         
     }
 render(){
@@ -41,7 +35,7 @@ render(){
                 <View style={{flex:2,justifyContent:'space-evenly',alignItems:'center'}}>
                       <LoginElement iconName="facebook" title="Log in with Facebook" onPress={this.facebookLogin()}/>
                       <LoginElement iconName="google" title="Log in with Google" onPress={this.gmailLogin()} />       
-                      <LoginElement iconName="envelope-square" title="Log in with registered email" onPress={() => this.props.navigation.navigate('signInWithRegisteredEmail')}/>
+                      <LoginElement iconName="envelope-square" title="Log in with registered email" onPress={() => this.registeredEmailLogin()} />
                 </View>
 
                 <LoginFooter content="By proceeding further, you are agreeing to our " clickableContent="terms & conditions " onPress={()=> this.showTermsandConditions()} />
@@ -55,4 +49,5 @@ render(){
     );
 }
 }
+
 

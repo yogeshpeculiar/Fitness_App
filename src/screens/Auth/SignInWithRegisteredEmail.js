@@ -6,6 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {login} from '../../API';
 import * as actionCreators from "../../store/actions";
 import {connect} from "react-redux";
+import { signInWithEmail } from '../../API/firebaseMethods';
 
 class SignInWithRegisteredEmail extends Component {
   constructor(props) {
@@ -31,28 +32,29 @@ class SignInWithRegisteredEmail extends Component {
   }
 
   async signIn() {
-    let temail = '';
-    let tpassword = ''
-    if (this.state.email != "") {
-      temail = JSON.stringify(this.state.email.text);
-      temail = temail.slice(1, -1);
-    }
-    if (this.state.password != "") {
-      tpassword = JSON.stringify(this.state.password.text);
-      tpassword = tpassword.slice(1, -1);
-    }
+    // let temail = '';
+    // let tpassword = ''
+    // if (this.state.email != "") {
+    //   temail = JSON.stringify(this.state.email.text);
+    //   temail = temail.slice(1, -1);
+    // }
+    // if (this.state.password != "") {
+    //   tpassword = JSON.stringify(this.state.password.text);
+    //   tpassword = tpassword.slice(1, -1);
+    // }
 
-    var result = await login(temail, tpassword);
+    // var result = await login(temail, tpassword);
+    var result = await signInWithEmail(this.state.email.text,this.state.password.text);
 
     console.log('-------------' + result);
-    if (result) {
-      this.props.setAuthToken(result.token);
-      this.props.setAuthenticated(true);
-    } else {
-      return (
-        <Text style={{color: ''}}>incorrect password</Text>
-      );
-    }
+    // if (result) {
+    //   this.props.setAuthToken(result.token);
+    //   this.props.setAuthenticated(true);
+    // } else {
+    //   return (
+    //     <Text style={{color: 'red'}}>incorrect password</Text>
+    //   );
+    // }
   }
 
   render() {
