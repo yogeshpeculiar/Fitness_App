@@ -12,9 +12,9 @@ import GenericButton from "../GenericButton";
 
 const ProfileTitle = (props) => {
 
-  const onlineCircleColor = {
-    backgroundColor: props.userOnline ? 'green' : 'red'
-  }
+  // const onlineCircleColor = {
+  //   backgroundColor: props.userOnline ? 'green' : 'red'
+  // }
   return (
     <View style={styles.container}>
       <View style={styles.dpContainer}>
@@ -23,14 +23,14 @@ const ProfileTitle = (props) => {
       <View style={styles.mainContent}>
         <View style={styles.nameContainer}>
           <GenericText type={GenericText.types.headingBold}>{props.name}</GenericText>
-          <View style={styles.onlineCircleContainer}>
-            <View style={[styles.onlineCircle, onlineCircleColor]}/>
-          </View>
+          {/*<View style={styles.onlineCircleContainer}>*/}
+          {/*  <View style={[styles.onlineCircle, onlineCircleColor]}/>*/}
+          {/*</View>*/}
         </View>
         <View style={styles.buttonGroup}>
           <View style={styles.buttonContainer}>
             <GenericButton
-              disabled={!props.userOnline}
+              // disabled={!props.userOnline}
               onPress={props.initiateVideoCallCallback}
               textContent={strings.CALL}/>
           </View>

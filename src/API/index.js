@@ -3,7 +3,8 @@ export {
   registerTrainer,
   registerUser,
   login,
-  firebaseAuth
+  firebaseTrainerAuth,
+  firebaseUserAuth
 } from './auth';
 
 export {
@@ -21,3 +22,7 @@ export {
 export {
   uploadImage
 } from './storage';
+
+export {
+  makeCall
+} from './call';

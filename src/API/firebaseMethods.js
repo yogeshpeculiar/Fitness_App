@@ -7,9 +7,12 @@ GoogleSignin.configure({webClientId});
 
 export const attemptGoogleAuth = async () => {
   try {
-    await GoogleSignin.hasPlayServices();
-    const {idToken} = await GoogleSignin.signIn();
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -21,6 +24,8 @@ export const attemptGoogleAuth = async () => {
     return false;
   }
 }
+
+
 
 export const registerWithEmail = async (email, password) => {
   try {

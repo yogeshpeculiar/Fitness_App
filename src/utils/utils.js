@@ -1,9 +1,11 @@
-import {showMessage, hideMessage} from "react-native-flash-message";
-import SocketIOClient from "socket.io-client";
-import {CHANNELS, rootURL} from "../constants/appConstants";
+// import {showMessage, hideMessage} from "react-native-flash-message";
+// import SocketIOClient from "socket.io-client";
+// import {CHANNELS, rootURL} from "../constants/appConstants";
 import {navigate} from '../navigation/RootNavigation';
 import RouteNames from "../navigation/RouteNames";
-import requestCameraAndAudioPermission from "./permission";
+// import requestCameraAndAudioPermission from "./permission";
+
+import {makeCall} from "../API";
 
 export const validateResponseCode = (code) => {
   return Math.floor(code / 100) === 2;
@@ -30,49 +32,62 @@ export const updateObject = (oldObject, updatedValues) => {
   };
 };
 
-export const initialiseSocket = (authToken) => {
-  if (authToken === '') {
-    console.log("Cannot initialise a socket without auth token. exiting");
+export const initialiseVideoCall = async (userId) => {
+  let result = await makeCall(userId);
+  if (!result) {
+    console.log("Call initiate error");
     return false;
   }
-  const socket = SocketIOClient(rootURL);
-  // socket.authToken = authToken/;
-  socket.on('connect', function (data) {
-    // console.log(socket)
-    socket.emit(CHANNELS.STORE_CLIENT_INFO, {authToken});
-  });
-  socket.on(CHANNELS.INITIATE_VIDEO_CALL, data => {
-    const {sessionID} = data;
-    navigate(RouteNames.VideoCall, {
-        AppID: 'de359ae21a884e08a18e38476b54ccea',
-        ChannelName: sessionID
-      }
-    )
+  const {sessionId, agoraAppId} = result;
+  navigate(RouteNames.VideoCall, {
+    AppID: agoraAppId,
+    ChannelName: sessionId
   })
-  socket.on(CHANNELS.CONFIRM_VIDEO_CALL, data => {
-    const {sessionID} = data;
-    showMessage({
-      message: "Receive call?",
-      type: "info",
-      description: "You are getting a call from a user",
-      autoHide: false,
-      onPress: async () => {
-        const permissionGranted = await requestCameraAndAudioPermission();
-        if (!permissionGranted) {
-          console.log("Cant initiate video call without permission")
-          return;
-        }
-        navigate(RouteNames.VideoCall, {
-            AppID: 'de359ae21a884e08a18e38476b54ccea',
-            ChannelName: sessionID
-          }
-        )
-      }
-    });
-  })
-
-
-  return socket;
 }
+
+// export const initialiseSocket = (authToken) => {
+//   if (authToken === '') {
+//     console.log("Cannot initialise a socket without auth token. exiting");
+//     return false;
+//   }
+//   const socket = SocketIOClient(rootURL);
+//   // socket.authToken = authToken/;
+//   socket.on('connect', function (data) {
+//     // console.log(socket)
+//     socket.emit(CHANNELS.STORE_CLIENT_INFO, {authToken});
+//   });
+//   socket.on(CHANNELS.INITIATE_VIDEO_CALL, data => {
+//     const {sessionID} = data;
+// navigate(RouteNames.VideoCall, {
+//     AppID: 'de359ae21a884e08a18e38476b54ccea',
+//     ChannelName: sessionID
+//   }
+// )
+//   })
+//   socket.on(CHANNELS.CONFIRM_VIDEO_CALL, data => {
+//     const {sessionID} = data;
+//     showMessage({
+//       message: "Receive call?",
+//       type: "info",
+//       description: "You are getting a call from a user",
+//       autoHide: false,
+//       onPress: async () => {
+//         const permissionGranted = await requestCameraAndAudioPermission();
+//         if (!permissionGranted) {
+//           console.log("Cant initiate video call without permission")
+//           return;
+//         }
+//         navigate(RouteNames.VideoCall, {
+//             AppID: 'de359ae21a884e08a18e38476b54ccea',
+//             ChannelName: sessionID
+//           }
+//         )
+//       }
+//     });
+//   })
+//
+//
+//   return socket;
+// }
 
 export const customDelay = (duration) => new Promise((resolve) => setTimeout(resolve, duration));

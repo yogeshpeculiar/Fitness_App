@@ -6,10 +6,9 @@ export const authState = {
 
 export const userState = {
   authToken: '',
-  userType: userTypes.USER,
+  userType: userTypes.TRAINER,
   userId:''
 };
-
 
 export const appState = {
   trainers: [], // trainer listing
