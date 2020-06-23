@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity,StatusBar } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FormElementTwo from '../../components/Login/FormElementTwo';
@@ -7,6 +7,7 @@ import PasswordElementTwo from '../../components/Login/PasswordElementTwo';
 import ActionButtonTwo from '../../components/Login/ActionButtonTwo';
 import { attemptGoogleAuth } from '../../API/firebaseMethods';
 import { signInWithEmail } from '../../API/firebaseMethods';
+import LoginFooter from '../../components/Login/LoginFooter';
 
 export default class LoginTwo extends Component {
     constructor(props) {
@@ -27,8 +28,14 @@ export default class LoginTwo extends Component {
     facebookLogin = () =>{
 
     }
+
+    signUp(){
+    //   this.props.navigator.navigate('LoginTwo')      
+    }
     render() {
         return (
+            <>
+            <StatusBar backgroundColor={'white'}/>
             <KeyboardAwareScrollView enableOnAndroid={true} contentContainerStyle={styles.contentContainer}>
                 <View style={styles.container}>
                     <View style={{ flex: 1.5 }}>
@@ -56,14 +63,15 @@ export default class LoginTwo extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-
+                        <LoginFooter content="Don't have an account?  " clickableContent=" Sign up" onPress={() => this.signUp()} />  
                     </View>
                     <View style={{ flex: 2 }}>
                     </View>
-                        
+                      
 
                 </View>
             </KeyboardAwareScrollView>
+            </>
         );
     }
 }
