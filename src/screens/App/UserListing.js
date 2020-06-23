@@ -40,7 +40,7 @@ class UserListing extends Component {
     if (userType === userTypes.USER) return (
       <TouchableOpacity
         activeOpacity={0.7}
-        style={index % 2 !== 0 && styles.itemSeparatorVertical}
+        style={[styles.userContainer, index % 2 !== 0 && styles.itemSeparatorVertical]}
         onPress={() => this.openTrainer(user._id)}
       >
         <UserThumb
@@ -52,7 +52,7 @@ class UserListing extends Component {
     else
       return <TouchableOpacity
         activeOpacity={0.7}
-        style={index % 2 !== 0 && styles.itemSeparatorVertical}
+        style={[styles.userContainer, index % 2 !== 0 && styles.itemSeparatorVertical]}
         onPress={() => this.openTrainer(user._id)}
       >
         <TrainerThumb
@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
   itemSeparatorVertical: {
     borderLeftWidth: 1,
     borderLeftColor: colors.lightGrey
+  },
+  userContainer:{
+    width:'50%'
   }
 });
 

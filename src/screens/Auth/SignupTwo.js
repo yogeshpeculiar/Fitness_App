@@ -103,18 +103,18 @@ export default class SignupTwo extends Component {
             </View>
 
             <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 40}}>
-              <   Text style={{fontSize: 18, color: 'grey'}}>or continue with</Text>
-              <View style={{flexDirection: 'row', marginTop: 20}}>
-                <TouchableOpacity onPress={() => {
-                  this.googleLogin()
-                }}>
-                  <FontAwesome name='google' size={40}/>
-                </TouchableOpacity>
-                {/*<TouchableOpacity onPress={()=>{this.facebookLogin()}}>*/}
-                {/*    <FontAwesome name='facebook' size={28} style={{ marginLeft: 20 }} />*/}
-                {/*</TouchableOpacity>*/}
+              {/*<   Text style={{fontSize: 18, color: 'grey'}}>or continue with</Text>*/}
+              {/*<View style={{flexDirection: 'row', marginTop: 20}}>*/}
+              {/*  <TouchableOpacity onPress={() => {*/}
+              {/*    this.googleLogin()*/}
+              {/*  }}>*/}
+              {/*    <FontAwesome name='google' size={40}/>*/}
+              {/*  </TouchableOpacity>*/}
+              {/*  /!*<TouchableOpacity onPress={()=>{this.facebookLogin()}}>*!/*/}
+              {/*  /!*    <FontAwesome name='facebook' size={28} style={{ marginLeft: 20 }} />*!/*/}
+              {/*  /!*</TouchableOpacity>*!/*/}
 
-              </View>
+              {/*</View>*/}
               <LoginFooter content="Already have an account?  " clickableContent=" Sign in"
                            onPress={() => this.props.navigation.pop()}/>
             </View>

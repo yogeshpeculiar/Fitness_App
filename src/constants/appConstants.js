@@ -12,9 +12,9 @@ export const CHANNELS = {
 }
 
 export const videoFeedConfig = {
-  width: 720,
-  height: 1080,
-  bitrate: 1,
+  width: 360,
+  height: 640,
+  bitrate: 600,
   FPS: 30
 }
 export const webClientId = '284208119571-nt9fitb9l2o4qulefvju8gqeo7aaug01.apps.googleusercontent.com';

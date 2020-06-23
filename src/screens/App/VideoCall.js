@@ -61,7 +61,7 @@ class VideoCall extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.handleCallTimeout, callTimeout);
+    // setTimeout(this.handleCallTimeout, callTimeout);
 
     RtcEngine.on('userJoined', (data) => {
       const {peerIds} = this.state;             //Get currrent peer IDs
