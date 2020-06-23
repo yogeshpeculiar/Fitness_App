@@ -24,22 +24,44 @@ import TrainerHomeScreen from "../screens/Auth/TrainerHomeScreen";
 import {updateAxiosToken} from "../API";
 import VideoCall from "../screens/App/VideoCall";
 import VideoTester from "../screens/App/VideoTester";
-import {navigationRef} from './RootNavigation';
+import {navigate, navigationRef} from './RootNavigation';
 import {videoTestMode} from "../constants/appConstants";
 import RNCallKeep from "react-native-callkeep";
 import LaunchApplication from 'react-native-bring-foreground';
-import {callKeepConfig, displayIncomingCall} from "../utils/callKeep";
+import {callKeepConfig, randomuuid} from "../utils/callKeep";
 import ChooseUserType from "../screens/Auth/ChooseUserType";
+import requestCameraAndAudioPermission from "../utils/permission";
+
+const displayIncomingCall = async (sessionId, agoraAppId, userName = 'user') => {
+  RNCallKeep.displayIncomingCall(randomuuid, 'user', userName);
+  global.sessionId = sessionId;
+  global.agoraAppId = agoraAppId;
+}
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Remote Message handled in the background!', remoteMessage);
   LaunchApplication.open('com.thirdessential.fitnessfirst');
-  const {sessionId, agoraAppId,userEmail}  = remoteMessage.data;
-  displayIncomingCall(sessionId, agoraAppId,userEmail);
+  const {sessionId, agoraAppId, userEmail} = remoteMessage.data;
+  displayIncomingCall(sessionId, agoraAppId, userEmail);
 });
 
+const onAnswerCallAction = async (data) => {
+  let {callUUID} = data;
+  RNCallKeep.backToForeground();
+  RNCallKeep.rejectCall(callUUID);
+
+  const permissionGranted = await requestCameraAndAudioPermission();
+  if (!permissionGranted) return;
+  navigate(RouteNames.VideoCall, {
+    AppID: global.agoraAppId,
+    ChannelName: global.sessionId
+  });
+};
+
 RNCallKeep.setup(callKeepConfig).then(accepted => {
+  RNCallKeep.addEventListener("answerCall", onAnswerCallAction)
 });
+
 
 const noHeader = {title: '', headerStyle: {height: 0}}
 
@@ -58,8 +80,8 @@ class App extends React.Component {
 
     messaging().onMessage(async remoteMessage => {
       console.log("Remote message received", remoteMessage);
-      const {sessionId, agoraAppId,userEmail}  = remoteMessage.data;
-      displayIncomingCall(sessionId, agoraAppId,userEmail);
+      const {sessionId, agoraAppId, userEmail} = remoteMessage.data;
+      displayIncomingCall(sessionId, agoraAppId, userEmail);
     })
   }
 
