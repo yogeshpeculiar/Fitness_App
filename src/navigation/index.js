@@ -13,8 +13,10 @@ import UserListing from "../screens/App/UserListing";
 import Profile from "../screens/App/Profile";
 import Packages from "../screens/App/Packages";
 import Splash from "../screens/Auth/Splash";
-import Login from "../screens/Auth/Login";
-import SignUp from "../screens/Auth/Signup";
+// import Login from "../screens/Auth/Login";
+// import SignUp from "../screens/Auth/Signup";
+import LoginTwo from "../screens/Auth/LoginTwo";
+import SignupTwo from "../screens/Auth/SignupTwo";
 import Listings from "../screens/Auth/Listings";
 
 import SignInWithRegisteredEmail from "../screens/Auth/SignInWithRegisteredEmail";
@@ -37,6 +39,7 @@ const displayIncomingCall = async (sessionId, agoraAppId, userName = 'user') => 
   global.sessionId = sessionId;
   global.agoraAppId = agoraAppId;
 }
+
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Remote Message handled in the background!', remoteMessage);
@@ -172,8 +175,8 @@ class App extends React.Component {
         }}
         >
           <Stack.Screen name={RouteNames.ChooseUserType} component={ChooseUserType} options={noHeader}/>
-          <Stack.Screen name={RouteNames.Login} component={Login} options={{title: ''}}/>
-          <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}}/>
+          <Stack.Screen name={RouteNames.Login} component={LoginTwo} options={{title: ''}} />
+          <Stack.Screen name={RouteNames.Signup} component={SignupTwo} options={{title: 'Sign up'}}/>
           <Stack.Screen name="Listings" component={Listings}/>
           <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail}
                         options={{title: 'Sign in'}}/>
