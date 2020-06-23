@@ -34,6 +34,9 @@ class UserListing extends Component {
   renderUserThumb = (user, index) => {
 
     const {userType} = user;
+    if (!userType)
+      return <View style={[styles.userContainer, index % 2 !== 0 && styles.itemSeparatorVertical]}
+      />
     let {name, totalSlots = 0, usedSlots = 0, experience = 0, rating, displayPictureUrl} = user;
     if (!displayPictureUrl) displayPictureUrl = defaultDP;
 
@@ -71,12 +74,15 @@ class UserListing extends Component {
   renderHorizontalSeparatorView = () => <View style={styles.itemSeparatorHorizontal}/>
 
   render() {
+    let users= this.props.trainers;
+    if(users.length%2)
+      users.push({});
     return (<>
         <StatusBar backgroundColor={colors.appBlue}/>
         <FlatList
           contentContainerStyle={styles.container}
           style={{flex: 1}}
-          data={this.props.trainers}
+          data={users}
           renderItem={({item, index}) => this.renderUserThumb(item, index)}
           numColumns={2}
           keyExtractor={(item, index) => item._id}
@@ -101,8 +107,8 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderLeftColor: colors.lightGrey
   },
-  userContainer:{
-    width:'50%'
+  userContainer: {
+    width: '50%',
   }
 });
 

@@ -6,7 +6,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "installRel": "cd android && ./gradlew installRelease",
+    "rel": "cd android && ./gradlew installRelease",
+    "release": "cd android && ./gradlew assembleRelease",
+    "clean": "cd android && ./gradlew clean",
     "test": "jest",
     "lint": "eslint ."
   },
