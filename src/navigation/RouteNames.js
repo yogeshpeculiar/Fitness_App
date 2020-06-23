@@ -11,7 +11,8 @@ const RouteNames = {
   VideoCall:'VideoCall',
   VideoTester:'VideoTester',
 
-  Login:'Login'
+  Login:'Login',
+  Signup:'Signup'
 };
 
 export default RouteNames;

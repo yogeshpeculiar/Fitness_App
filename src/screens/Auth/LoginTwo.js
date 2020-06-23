@@ -8,6 +8,7 @@ import ActionButtonTwo from '../../components/Login/ActionButtonTwo';
 import { attemptGoogleAuth } from '../../API/firebaseMethods';
 import { signInWithEmail } from '../../API/firebaseMethods';
 import LoginFooter from '../../components/Login/LoginFooter';
+import RouteNames from "../../navigation/RouteNames";
 
 export default class LoginTwo extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default class LoginTwo extends Component {
         }
     }
    async signIn () {
-        var result = await signInWithEmail(this.state.email.text,this.state.password.text);
+     var result = await signInWithEmail(this.state.email.text, this.state.password.text);
         console.log('-------------' + result);
     }
 
@@ -30,7 +31,7 @@ export default class LoginTwo extends Component {
     }
 
     signUp(){
-    //   this.props.navigator.navigate('LoginTwo')      
+      this.props.navigation.navigate(RouteNames.Signup)
     }
     render() {
         return (
@@ -56,11 +57,11 @@ export default class LoginTwo extends Component {
                             <   Text style={{ fontSize: 18, color: 'grey' }}>or continue with</Text>
                             <View style={{ flexDirection: 'row', marginTop: 30 }}>
                                 <TouchableOpacity onPress={()=>{this.googleLogin()}}>
-                                    <FontAwesome name='google' size={28} />
+                                    <FontAwesome name='google' size={40} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={()=>{this.facebookLogin()}}>
-                                    <FontAwesome name='facebook' size={28} style={{ marginLeft: 20 }} />
-                                </TouchableOpacity>
+                                {/*<TouchableOpacity onPress={()=>{this.facebookLogin()}}>*/}
+                                {/*    <FontAwesome name='facebook' size={28} style={{ marginLeft: 20 }} />*/}
+                                {/*</TouchableOpacity>*/}
                             </View>
                         </View>
                         <LoginFooter content="Don't have an account?  " clickableContent=" Sign up" onPress={() => this.signUp()} />  

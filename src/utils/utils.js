@@ -22,7 +22,7 @@ export const textSlicer = (text, length) => {
 
 export const getOSPath = (path) => {
   if (path.includes("content")) return path;
-  return Platform.OS === "android" ? "file://" + path : path;
+  return Platform.OS === "android" ? "file:/" + path : path;
 };
 
 export const updateObject = (oldObject, updatedValues) => {
