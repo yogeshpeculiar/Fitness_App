@@ -30,6 +30,8 @@ import RNCallKeep from "react-native-callkeep";
 import LaunchApplication from 'react-native-bring-foreground';
 import {callKeepConfig, displayIncomingCall} from "../utils/callKeep";
 import ChooseUserType from "../screens/Auth/ChooseUserType";
+import LoginTwo from "../screens/Auth/LoginTwo";
+import SignupTwo from "../screens/Auth/SignupTwo";
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Remote Message handled in the background!', remoteMessage);
@@ -150,8 +152,8 @@ class App extends React.Component {
         }}
         >
           <Stack.Screen name={RouteNames.ChooseUserType} component={ChooseUserType} options={noHeader}/>
-          <Stack.Screen name={RouteNames.Login} component={Login} options={{title: ''}}/>
-          <Stack.Screen name="Signup" component={SignUp} options={{title: 'Sign up'}}/>
+          <Stack.Screen name={RouteNames.Login} component={LoginTwo} options={{title: ''}} />
+          <Stack.Screen name={RouteNames.Signup} component={SignupTwo} options={{title: 'Sign up'}}/>
           <Stack.Screen name="Listings" component={Listings}/>
           <Stack.Screen name="signInWithRegisteredEmail" component={SignInWithRegisteredEmail}
                         options={{title: 'Sign in'}}/>

@@ -1,10 +1,12 @@
 import RNFetchBlob from "rn-fetch-blob";
 import {rootURL} from "../constants/appConstants";
+import {getOSPath} from "../utils/utils";
 
 const getFileExtension = (path) => path.slice(((path.lastIndexOf(".") - 1) >>> 0) + 2);
 
 export const uploadImage = async (path, token) => {
   try {
+    path = getOSPath(path);
     let fileExtension = getFileExtension(path);
     console.log("Uploading from ", path);
 

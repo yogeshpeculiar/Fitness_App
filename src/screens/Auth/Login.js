@@ -11,7 +11,7 @@ export default class Login extends Component{
 
     }
     gmailLogin=()=>{
-        attemptGoogleAuth();
+        // attemptGoogleAuth();
     }
     registeredEmailLogin = () =>{
         this.props.navigation.navigate('signInWithRegisteredEmail')

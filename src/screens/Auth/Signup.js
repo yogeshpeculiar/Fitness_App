@@ -27,8 +27,6 @@ class Signup extends Component {
             email: '',
             password: '',
             referralCode: '',
-            agreeToTerms: false,
-            nameError: null,
             emailError: null,
             passwordError: null,
             checked: false

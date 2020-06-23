@@ -3,8 +3,8 @@ import {View,TouchableOpacity,Text,StyleSheet} from 'react-native';
 const LoginFooter=(props) =>{
     return (
         <TouchableOpacity style={styles.container}  onPress={props.onPress}>
-            <Text style={{color:'grey',fontSize:12}}>{props.content}</Text>
-                <Text style={{color:'blue'}}  > {props.clickableContent}</Text>
+            <Text style={{color:'grey',fontSize:16}}>{props.content}</Text>
+                <Text style={{color:'#0D1166'}}  >{props.clickableContent}</Text>
          </TouchableOpacity>
      );
 }
@@ -14,6 +14,7 @@ const styles=StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flexDirection:'row',
+        marginTop:20
     }
 });
 export default LoginFooter;
